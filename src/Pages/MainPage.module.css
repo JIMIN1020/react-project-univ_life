@@ -1,0 +1,43 @@
+.container {
+  width: 100vw;
+  height: 90vh;
+}
+
+.top {
+  width: 100%;
+  height: 10%;
+}
+
+.top h1 {
+  font-size: 20px;
+  margin: 20px 30px;
+}
+
+.bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 90%;
+}
+
+.profile {
+  background-color: white;
+  width: 400px;
+  height: 250px;
+  margin: auto;
+  border-radius: 30px;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.16), 0 5px 8px rgba(0, 0, 0, 0.23);
+  position: absolute;
+}
+
+.menuContainer {
+  background-color: rgb(0, 48, 135);
+  width: 170px;
+  height: 450px;
+  position: relative;
+  left: 200px;
+  border-radius: 40px;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.16), 0 5px 8px rgba(0, 0, 0, 0.23);
+}
