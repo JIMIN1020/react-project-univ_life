@@ -13,9 +13,9 @@
 
 ### Github 관련
 
-- 각 페이지 소단위 기능 별로 issue 작성
+- 각 페이지 소단위 기능 별로 issue 작성 (assignees에 본인 등록)
 - 작성한 issue id와 내용 이용하여 브랜치 생성 후 작업 (ex. id가 `1`이고 작업 내용이 `UI디자인`이고, 성적 페이지 작업이면 브랜치 이름은 `1-성적/UI디자인`과 같은 식으로!)
-- pull request 할 때 issue id 명시
+- pull request 할 때 issue id 명시 (id가 `1`이면 `#1`과 같이)
 
 <br/>
 
