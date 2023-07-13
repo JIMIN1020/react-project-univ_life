@@ -1,0 +1,119 @@
+.container {
+  width: 100vw;
+  height: 90vh;
+}
+
+.top {
+  width: 100%;
+  height: 50px;
+}
+
+.top h1 {
+  font-size: 20px;
+  margin: 20px 30px;
+}
+
+.bottom {
+  width: 100%;
+  height: 90%;
+  display: flex;
+  flex-direction: column;
+}
+
+.contents {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  width: 1290px;
+  height: 650px;
+}
+
+.contentBox {
+  background-color: rgb(245, 245, 245);
+
+  border-radius: 0 10px 10px 0;
+  width: 1080px;
+  height: 650px;
+
+  box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.16);
+}
+
+.contentTop {
+  width: 100%;
+  height: 35%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.div1 {
+  background-color: white;
+  width: 30%;
+  height: 75%;
+  border-radius: 20px;
+  box-shadow: 5px 8px 10px rgba(0, 0, 0, 0.16);
+
+  margin-left: 120px;
+  margin-top: 30px;
+}
+
+.line1 {
+  display: flex;
+  height: 85px;
+  align-items: center;
+  margin-top: 5px;
+  margin-bottom: -10px;
+}
+
+.line2 {
+  display: flex;
+  height: 85px;
+  align-items: center;
+}
+
+.div2 {
+  background-color: white;
+  width: 37%;
+  height: 75%;
+  border-radius: 20px;
+  box-shadow: 5px 8px 10px rgba(0, 0, 0, 0.16);
+
+  margin-right: 120px;
+  margin-top: 30px;
+
+  display: flex;
+}
+
+.left {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.circle {
+  background-color: rgb(0, 48, 135);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 800;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.16);
+  margin: 0 30px;
+}
+
+.todoContainer {
+  height: 100%;
+  width: 70%;
+}
+
+.contentBottom {
+  width: 100%;
+  height: 65%;
+
+  display: flex;
+}
