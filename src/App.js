@@ -1,9 +1,10 @@
 import "./App.css";
+import GraduationPage from "./Pages/GraduationPage";
 import MainPage from "./Pages/MainPage";
 import Page from "./Pages/Page";
 
 function App() {
-  return <Page></Page>;
+  return <GraduationPage></GraduationPage>;
 }
 
 export default App;
