@@ -4,6 +4,7 @@ import Profile from "./Components/Profile";
 import IndexBar from "./Components/IndexBar";
 import PlanBottom from "./Components/GraduationPage/PlanBottom";
 import PlanTop from "./Components/GraduationPage/PlanTop";
+import Todo from "./Components/GraduationPage/Todo";
 
 const GraduationPage = () => {
   return (
@@ -29,7 +30,15 @@ const GraduationPage = () => {
                 <div className={styles.left}>
                   <div className={styles.circle}>졸업 요건</div>
                 </div>
-                <div className={styles.todoContainer}></div>
+                <div className={styles.todoContainer}>
+                  <div>
+                    <Todo />
+                    <Todo />
+                    <Todo />
+                    <Todo />
+                    <Todo />
+                  </div>
+                </div>
               </div>
             </div>
             <div className={styles.contentBottom}>

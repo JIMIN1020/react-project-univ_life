@@ -107,8 +107,17 @@
 }
 
 .todoContainer {
-  height: 100%;
+  height: 150px;
   width: 70%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0;
+  padding-right: 10px;
+  overflow-y: auto;
+}
+
+.todoContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .contentBottom {
@@ -118,4 +127,9 @@
   display: flex;
   white-space: nowrap;
   overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.contentBottom::-webkit-scrollbar {
+  display: none;
 }
