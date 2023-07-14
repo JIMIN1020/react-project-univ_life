@@ -1,5 +1,5 @@
 .container {
-  width: 25%;
+  width: 270px;
   height: 100%;
   margin-left: 1.5px;
   margin-right: 1.5px;
@@ -12,7 +12,7 @@
 }
 
 .planBox {
-  width: 100%;
+  width: 270px;
   height: 38.2%;
 
   display: flex;
@@ -31,7 +31,7 @@
 }
 
 .lines {
-  width: 100%;
+  width: 270px;
   display: flex;
   justify-content: space-between;
   position: relative;
