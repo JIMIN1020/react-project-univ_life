@@ -37,6 +37,7 @@ const GraduationPage = () => {
               <PlanTop />
               <PlanBottom />
               <PlanTop />
+              <PlanBottom />
             </div>
           </div>
         </div>

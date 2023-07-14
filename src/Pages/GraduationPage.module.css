@@ -112,8 +112,10 @@
 }
 
 .contentBottom {
-  width: 100%;
+  width: 1080px;
   height: 65%;
 
   display: flex;
+  white-space: nowrap;
+  overflow-x: auto;
 }

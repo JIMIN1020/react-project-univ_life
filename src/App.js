@@ -5,7 +5,7 @@ import MainPage from "./Pages/MainPage";
 import Page from "./Pages/Page";
 
 function App() {
-  return <GradePage></GradePage>;
+  return <GraduationPage></GraduationPage>;
 }
 
 export default App;
