@@ -6,7 +6,7 @@ import MainPage from "./Pages/MainPage";
 import Page from "./Pages/Page";
 
 function App() {
-  return <ActiviPage></ActiviPage>;
+  return <GradePage></GradePage>;
 }
 
 export default App;
