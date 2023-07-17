@@ -5,7 +5,7 @@
 
 .label {
   position: relative;
-  top: 280px;
+  top: 200px;
   left: 0px;
 }
 
@@ -66,7 +66,7 @@
 
 .div1 {
   background-color: white;
-  width: 900px;
+  width: 1200px;
   height: 250px;
   border-radius: 20px;
   box-shadow: 5px 8px 10px rgba(0, 0, 0, 0.16);
@@ -163,6 +163,15 @@
   top: 320px;
   height: 300px;
   width: 20%;
+}
+
+.div1Label{
+  top: 20%;
+  position: relative;
+  background-color: #fff;
+  padding: 10px;
+  width: 200px;
+  left : 800px;
 }
 
 .divSubject {
