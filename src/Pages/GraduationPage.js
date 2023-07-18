@@ -1,12 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./GraduationPage.module.css";
 import Profile from "./Components/Profile";
 import IndexBar from "./Components/IndexBar";
 import PlanBottom from "./Components/GraduationPage/PlanBottom";
 import PlanTop from "./Components/GraduationPage/PlanTop";
 import Todo from "./Components/GraduationPage/Todo";
+import NewTodo from "./Components/GraduationPage/NewTodo";
+import { BsPlusCircle } from "react-icons/bs";
 
 const GraduationPage = () => {
+  const [todo, setTodo] = useState([]);
+  const [editing, setEditing] = useState(false);
+
+  /* --------------- todo 완료 처리 --------------- */
+  const completeTodo = (id) => {
+    let newTodo = todo.map((todo) => {
+      if (todo.id === id) {
+        todo.completed = !todo.completed;
+      }
+      return todo;
+    });
+
+    setTodo(newTodo);
+  };
+
+  /* --------------- todo 삭제 처리 --------------- */
+  const deleteTodo = (id) => {
+    let newTodo = todo.filter((todo) => todo.id !== id);
+    setTodo(newTodo);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -32,11 +55,28 @@ const GraduationPage = () => {
                 </div>
                 <div className={styles.todoContainer}>
                   <div>
-                    <Todo />
-                    <Todo />
-                    <Todo />
-                    <Todo />
-                    <Todo />
+                    {todo.map((todo) => {
+                      return (
+                        <Todo
+                          todo={todo}
+                          completeTodo={completeTodo}
+                          deleteTodo={deleteTodo}
+                        />
+                      );
+                    })}
+                    {editing ? (
+                      <NewTodo
+                        todo={todo}
+                        setTodo={setTodo}
+                        setEditing={setEditing}
+                      />
+                    ) : undefined}
+                    <button
+                      className={styles.addBtn}
+                      onClick={() => setEditing(true)}
+                    >
+                      <BsPlusCircle style={{ height: "20px", width: "20px" }} />
+                    </button>
                   </div>
                 </div>
               </div>

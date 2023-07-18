@@ -133,3 +133,11 @@
 .contentBottom::-webkit-scrollbar {
   display: none;
 }
+
+.addBtn {
+  width: 90%;
+  height: 40px;
+  color: rgb(0, 48, 135);
+  background-color: white;
+  border: none;
+}
