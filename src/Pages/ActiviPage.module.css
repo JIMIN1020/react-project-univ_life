@@ -36,75 +36,58 @@
     height: 650px;
   
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.16);
+    
   }
-  
-  .content {
+
+  .contentTop {
     width: 100%;
-    height: 33%;
+    height: 33.2%;
+    /*height: calc(100% / 3);*/
+    display: flex;
+    font-size: 15px;
+  }
+
+  .contentBottom {
+    width: 93%;
   
     display: flex;
-    justify-content: space-between;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    justify-content: space-evenly ;
     align-items: center;
   }
-  
-  .div1 {
+
+
+  .contenth {
+    margin-left:10px;
+    width: 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+
+  .div {
     background-color: white;
-    width: 30%;
-    height: 75%;
     border-radius: 20px;
     box-shadow: 5px 8px 10px rgba(0, 0, 0, 0.16);
-  
-    margin-left: 40px;
-    margin-right:40px;
-    margin-bottom: 90px;
+    
+    width: 300px;
+    height: 200px;
   }
   
-  .line1 {
-    display: flex;
-    height: 85px;
-    align-items: center;
-    margin-top: 5px;
-    margin-bottom: -10px;
+  .divider {
+    border: 1px dashed rgba(0, 0, 0, 0.2);
   }
-  
-  .line2 {
-    display: flex;
-    height: 85px;
-    align-items: center;
-  }
-  
-  .div2 {
-    background-color: white;
-    width: 37%;
-    height: 75%;
-    border-radius: 20px;
-    box-shadow: 5px 8px 10px rgba(0, 0, 0, 0.16);
-  
-    margin-right: 120px;
-    margin-top: 30px;
-  
-    display: flex;
-  }
-  
+
   .left {
     height: 100%;
     display: flex;
     align-items: center;
-  }
-  
-  .circle {
-    background-color: rgb(0, 48, 135);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 13px;
-    font-weight: 800;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.16);
-    margin: 0 30px;
   }
   
   .todoContainer {
@@ -121,17 +104,13 @@
     display: none;
   }
   
-  .contentBottom {
-    width: 1080px;
-    height: 65%;
-  
-    display: flex;
-    white-space: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-  
   .contentBottom::-webkit-scrollbar {
     display: none;
+  }
+
+  .addBtn {
+    color: rgb(0, 48, 135);
+    background-color: rgb(245, 245, 245);
+    border: none;
   }
   
