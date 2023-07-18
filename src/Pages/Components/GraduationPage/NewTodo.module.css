@@ -28,3 +28,8 @@
   position: absolute;
   opacity: 0;
 }
+
+.input {
+  border: none;
+  margin-left: 10px;
+}
