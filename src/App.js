@@ -7,7 +7,14 @@ import Page from "./Pages/Page";
 import BlogPage from "./Pages/BlogPage";
 
 function App() {
-  return <ActiviPage/>;
+  return (
+    <>
+      <GradePage />
+      <ActiviPage />
+      <GraduationPage />
+      <BlogPage />
+    </>
+  );
 }
 
 export default App;
