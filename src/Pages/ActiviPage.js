@@ -3,16 +3,22 @@ import styles from "./ActiviPage.module.css";
 import Profile from "./Components/Profile";
 import IndexBar from "./Components/IndexBar";
 import ActiviModal from "./Components/ActiviPage/ActiviModal";
-import { BsPlusCircle } from "react-icons/bs";
 
-const GradePage = () => {
+const ActiviPage = () => {
   const [activi,setActivi] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [activiSelected, setActiviSelected] = useState({});
+  const [savedActiviContent, setSavedActiviContent] = useState(""); // 저장된 내용 상태 변수
 
   const handleClick = (activi) => {
     setModalOpen(true);
     setActiviSelected(activi);
+    setActivi(prevActivi => [...prevActivi, <div className={styles.div}></div>]);
+  };
+
+  const handleSaveActiviContent = (content) => {
+    setSavedActiviContent(content);
+    // 저장된 내용을 활용하여 필요한 로직을 추가
   };
 
   return (
@@ -34,17 +40,19 @@ const GradePage = () => {
               <div className={styles.contentBottom}>
               <button
                       className={styles.addBtn}
-                      onClick={()=>handleClick(activiSelected)}
-                    >
-                      <BsPlusCircle style={{ height: "30px", width: "30px" }} />
+                      onClick={()=>handleClick(activi)}
+                    >+
                     </button>
+              {modalOpen && (
+                <ActiviModal {...activiSelected} setModalOpen={setModalOpen} onSave={handleSaveActiviContent} />
+            )}
               </div>
             </div>
             <div className={styles.divider}></div>
             <div className={styles.contentTop}>
               <div className={styles.contenth}>대외활동</div>
               <div className={styles.contentBottom}>
-                <div className={styles.div}></div>
+                <div className={styles.div} onClick={()=>handleClick(activi)}></div>
               </div>
             </div>
             <div className={styles.divider}></div>
@@ -58,11 +66,8 @@ const GradePage = () => {
           </div>
         </div>
       </div>
-      {modalOpen && (
-        <ActiviModal {...activiSelected} setModalOpen={setModalOpen} />
-      )}
     </div>
   );
 };
 
-export default GradePage;
+export default ActiviPage;
