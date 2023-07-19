@@ -66,6 +66,14 @@
   margin-bottom: -10px;
 }
 
+.textBox {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  height: 75px;
+  align-items: center;
+}
+
 .line2 {
   display: flex;
   height: 85px;
@@ -140,4 +148,17 @@
   color: rgb(0, 48, 135);
   background-color: white;
   border: none;
+}
+
+.icon {
+  width: 17px;
+  height: 17px;
+  color: gray;
+}
+
+.editBtn {
+  background-color: white;
+  border: none;
+  width: 20px;
+  margin-right: 25px;
 }

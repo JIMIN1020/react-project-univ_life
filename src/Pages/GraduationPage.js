@@ -6,11 +6,25 @@ import PlanBottom from "./Components/GraduationPage/PlanBottom";
 import PlanTop from "./Components/GraduationPage/PlanTop";
 import Todo from "./Components/GraduationPage/Todo";
 import NewTodo from "./Components/GraduationPage/NewTodo";
-import { BsPlusCircle } from "react-icons/bs";
+import { BsPlusCircle, BsPencilSquare } from "react-icons/bs";
+import SelectBox from "./Components/GraduationPage/SelectBox";
 
 const GraduationPage = () => {
-  const [todo, setTodo] = useState([]);
-  const [editing, setEditing] = useState(false);
+  const [todo, setTodo] = useState([
+    { id: Date.now(), value: "토익 900점 이상", completed: false },
+    {
+      id: Date.now() + 1,
+      value: "졸업 프로젝트",
+      completed: false,
+    },
+  ]); // todo 데이터 (임시 데이터 2개)
+
+  const [addTodo, setAddTodo] = useState(false); // todo 추가 처리를 위한 state
+  const [editYearE, setEditE] = useState(false); // 입학년도 수정을 위한 state
+  const [editYearG, setEditG] = useState(false); // 졸업년도 수정을 위한 state
+  const [enter, setEnter] = useState(2016); // 입학년도
+  const [graduate, setGraduate] = useState(2022); // 졸업년도
+  const [graduateM, setGraduateM] = useState(2); // 졸업년도
 
   /* --------------- todo 완료 처리 --------------- */
   const completeTodo = (id) => {
@@ -44,9 +58,53 @@ const GraduationPage = () => {
               <div className={styles.div1}>
                 <div className={styles.line1}>
                   <div className={styles.circle}>입학 년도</div>
+                  <div className={styles.textBox}>
+                    {editYearE ? (
+                      <SelectBox
+                        title="입학년도"
+                        year={enter}
+                        setYear={setEnter}
+                        reset={setEditE}
+                      />
+                    ) : (
+                      <>
+                        <span>{enter}년</span>
+                        <button
+                          className={styles.editBtn}
+                          onClick={() => setEditE(true)}
+                        >
+                          <BsPencilSquare className={styles.icon} />
+                        </button>
+                      </>
+                    )}
+                  </div>
                 </div>
                 <div className={styles.line2}>
                   <div className={styles.circle}>졸업 년도</div>
+                  <div className={styles.textBox}>
+                    {editYearG ? (
+                      <SelectBox
+                        title="졸업년도"
+                        year={graduate}
+                        setYear={setGraduate}
+                        month={graduateM}
+                        setMonth={setGraduateM}
+                        reset={setEditG}
+                      />
+                    ) : (
+                      <>
+                        <span>
+                          {graduate}년 {graduateM}월
+                        </span>
+                        <button
+                          className={styles.editBtn}
+                          onClick={() => setEditG(true)}
+                        >
+                          <BsPencilSquare className={styles.icon} />
+                        </button>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
               <div className={styles.div2}>
@@ -64,16 +122,16 @@ const GraduationPage = () => {
                         />
                       );
                     })}
-                    {editing ? (
+                    {addTodo ? (
                       <NewTodo
                         todo={todo}
                         setTodo={setTodo}
-                        setEditing={setEditing}
+                        setaddTodo={setAddTodo}
                       />
                     ) : undefined}
                     <button
                       className={styles.addBtn}
-                      onClick={() => setEditing(true)}
+                      onClick={() => setAddTodo(true)}
                     >
                       <BsPlusCircle style={{ height: "20px", width: "20px" }} />
                     </button>
