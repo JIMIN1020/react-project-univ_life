@@ -126,7 +126,7 @@ const GraduationPage = () => {
                       <NewTodo
                         todo={todo}
                         setTodo={setTodo}
-                        setaddTodo={setAddTodo}
+                        setAddTodo={setAddTodo}
                       />
                     ) : undefined}
                     <button
