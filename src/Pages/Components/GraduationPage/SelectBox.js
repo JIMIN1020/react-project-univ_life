@@ -4,10 +4,10 @@ import styles from "./SelectBox.module.css";
 
 const SelectBox = ({ title, year, setYear, month, setMonth, reset }) => {
   const handleChange = (e) => {
-    setYear(e.target.value);
+    setYear(parseInt(e.target.value));
   };
   const handleChangeMonth = (e) => {
-    setMonth(e.target.value);
+    setMonth(parseInt(e.target.value));
   };
   let options;
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./GraduationPage.module.css";
 import Profile from "./Components/Profile";
 import IndexBar from "./Components/IndexBar";
@@ -8,16 +8,12 @@ import Todo from "./Components/GraduationPage/Todo";
 import NewTodo from "./Components/GraduationPage/NewTodo";
 import { BsPlusCircle, BsPencilSquare } from "react-icons/bs";
 import SelectBox from "./Components/GraduationPage/SelectBox";
-
-// import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-
 import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
-import "swiper/css/scrollbar";
+import PlanModal from "./Components/GraduationPage/PlanModal";
 
 const GraduationPage = () => {
+  // todo 데이터 (임시 데이터 2개)
   const [todo, setTodo] = useState([
     { id: Date.now(), value: "토익 900점 이상", completed: false },
     {
@@ -25,14 +21,34 @@ const GraduationPage = () => {
       value: "졸업 프로젝트",
       completed: false,
     },
-  ]); // todo 데이터 (임시 데이터 2개)
+  ]);
+  // 계획 데이터
+  const [plan, setPlan] = useState([
+    { id: 2016 - 1, title: `2016학년도 1학기`, plans: [] },
+    { id: 2016 - 2, title: `2016학년도 2학기`, plans: [] },
+    { id: 2017 - 1, title: `2017학년도 1학기`, plans: [] },
+    { id: 2017 - 2, title: `2017학년도 2학기`, plans: [] },
+  ]);
 
   const [addTodo, setAddTodo] = useState(false); // todo 추가 처리를 위한 state
   const [editYearE, setEditE] = useState(false); // 입학년도 수정을 위한 state
   const [editYearG, setEditG] = useState(false); // 졸업년도 수정을 위한 state
   const [enter, setEnter] = useState(2016); // 입학년도
   const [graduate, setGraduate] = useState(2022); // 졸업년도
-  const [graduateM, setGraduateM] = useState(2); // 졸업년도
+  const [graduateM, setGraduateM] = useState(2); // 졸업 월
+  const [modalOpen, setModalOpen] = useState(false); // 모달창 오픈 관리
+  const [currentYear, setCurrentYear] = useState(enter + 2); // 현재 입력된 계획년도 저장용
+  const [currentTerm, setCurrentTerm] = useState(false); // 현재 입력된 계획 학기 저장용
+  let [top, setTop] = useState(0); // 계획 렌더링용 state
+
+  /* --------------- useEffect --------------- */
+  useEffect(() => {
+    setTop(0);
+  }, []);
+
+  useEffect(() => {
+    changeEnterYear();
+  }, [enter]);
 
   /* --------------- todo 완료 처리 --------------- */
   const completeTodo = (id) => {
@@ -50,6 +66,16 @@ const GraduationPage = () => {
   const deleteTodo = (id) => {
     let newTodo = todo.filter((todo) => todo.id !== id);
     setTodo(newTodo);
+  };
+
+  /* --------------- 입학년도 변경 시 --------------- */
+  const changeEnterYear = () => {
+    let n = 0;
+    let term = false;
+    plan.map((plan) => {
+      plan.title = `${enter + parseInt(n / 2)}학년도 ${(n % 2) + 1}학기`;
+      n++;
+    });
   };
 
   return (
@@ -148,23 +174,32 @@ const GraduationPage = () => {
               </div>
             </div>
             <div className={styles.contentBottom}>
+              <h2> 학기별 계획 </h2>
+              <button className={styles.Btn} onClick={() => setModalOpen(true)}>
+                <BsPlusCircle style={{ height: "18px", width: "18px" }} />
+              </button>
               <Swiper slidesPerView={4}>
-                <SwiperSlide key={1}>
-                  <PlanTop />
-                </SwiperSlide>
-                <SwiperSlide key={2}>
-                  <PlanBottom />
-                </SwiperSlide>
-                <SwiperSlide key={3}>
-                  <PlanTop />
-                </SwiperSlide>
-                <SwiperSlide key={4}>
-                  <PlanBottom />
-                </SwiperSlide>
-                <SwiperSlide key={5}>
-                  <PlanTop />
-                </SwiperSlide>
+                {plan.map((plan) => {
+                  return (
+                    <SwiperSlide>
+                      {++top % 2 === 0 ? (
+                        <PlanBottom plan={plan} />
+                      ) : (
+                        <PlanTop plan={plan} />
+                      )}
+                    </SwiperSlide>
+                  );
+                })}
               </Swiper>
+              {modalOpen && (
+                <PlanModal
+                  setModalOpen={setModalOpen}
+                  currentYear={currentYear}
+                  setCurrentYear={setCurrentYear}
+                  currentTerm={currentTerm}
+                  setCurrentTerm={setCurrentTerm}
+                />
+              )}
             </div>
           </div>
         </div>
