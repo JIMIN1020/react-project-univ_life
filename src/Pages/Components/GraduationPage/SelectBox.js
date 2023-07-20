@@ -23,13 +23,23 @@ const SelectBox = ({ title, year, setYear, month, setMonth, reset }) => {
   }
   return (
     <>
-      <select onChange={handleChange} key={year} defaultValue={year}>
+      <select
+        className={styles.selectBox}
+        onChange={handleChange}
+        key={year}
+        defaultValue={year}
+      >
         {options.map((option) => {
           return <option value={option.value}>{option.name}</option>;
         })}
       </select>
       {title === "졸업년도" ? (
-        <select onChange={handleChangeMonth} key={month} defaultValue={month}>
+        <select
+          className={styles.selectBox2}
+          onChange={handleChangeMonth}
+          key={month}
+          defaultValue={month}
+        >
           <option value={2} defaultValue={month === 2}>
             2월
           </option>

@@ -74,6 +74,25 @@
   align-items: center;
 }
 
+.editBtn {
+  background-color: white;
+  border: none;
+  width: 20px;
+  margin-right: 25px;
+}
+
+.icon {
+  width: 17px;
+  height: 17px;
+  color: white;
+}
+
+.textBox:hover {
+  .icon {
+    color: gray;
+  }
+}
+
 .line2 {
   display: flex;
   height: 85px;
@@ -150,15 +169,9 @@
   border: none;
 }
 
-.icon {
-  width: 17px;
-  height: 17px;
-  color: gray;
-}
-
-.editBtn {
-  background-color: white;
-  border: none;
-  width: 20px;
-  margin-right: 25px;
+.date {
+  font-size: 16px;
+  font-weight: 500;
+  background-image: linear-gradient(white 55%, rgba(0, 47, 135, 0.166) 45%);
+  transition: all 2s;
 }
