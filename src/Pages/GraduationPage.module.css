@@ -157,10 +157,6 @@
   overflow-y: hidden;
 }
 
-.contentBottom::-webkit-scrollbar {
-  display: none;
-}
-
 .addBtn {
   width: 90%;
   height: 40px;
