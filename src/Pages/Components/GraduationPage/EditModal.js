@@ -1,40 +1,15 @@
 import React, { useState } from "react";
-import styles from "./PlanModal.module.css";
+import styles from "./EditModal.module.css";
 import { BsCheck2, BsRecordFill, BsPlusCircle, BsXLg } from "react-icons/bs";
 
-const PlanModal = ({
-  setModalOpen,
-  currentYear,
-  setCurrentYear,
-  currentTerm,
-  setCurrentTerm,
-  plan,
-  setPlan,
-}) => {
-  const [tempPlan, setTempPlan] = useState([]); // 임시 plan
+const EditModal = ({ plan, setEditModal }) => {
+  const [tempPlan, setTempPlan] = useState(plan.plans); // 임시 plan
   const [newPlan, setNewPlan] = useState(false); // 계획 추가용
 
   /* --------------- 최종 plan 처리 --------------- */
-  const addPlan = () => {
-    const newPlan = {
-      id: Date.now(),
-      title: `${currentYear}학년도 ${currentTerm + 1}학기`,
-      removable: true,
-      plans: tempPlan,
-    };
-    // 이전 마지막 요소 삭제 불가능하게 조정
-    const prevLast = plan[plan.length - 1];
-    prevLast.removable = false;
-
-    // 업데이트
-    setPlan((prev) => [...prev, newPlan]);
-
-    // setting
-    setCurrentTerm((prev) => !prev);
-    if (currentTerm) {
-      setCurrentYear((prev) => prev + 1);
-    }
-    setModalOpen(false);
+  const updatePlan = () => {
+    plan.plans = tempPlan;
+    setEditModal(false);
   };
 
   /* --------------- plan 삭제 처리 --------------- */
@@ -46,14 +21,12 @@ const PlanModal = ({
   return (
     <div className={styles.container}>
       <div className={styles.btnContainer}>
-        <button className={styles.closeBtn} onClick={() => setModalOpen(false)}>
+        <button className={styles.closeBtn} onClick={() => setEditModal(false)}>
           X
         </button>
       </div>
-      <h3>
-        {currentYear}학년도 {currentTerm + 1}학기 계획
-      </h3>
-      <span className={styles.desc}>해당 학기 계획을 입력해주세요.</span>
+      <h3>{plan.title} 계획 수정</h3>
+      <span className={styles.desc}>해당 학기 계획을 수정해주세요.</span>
       <div className={styles.bottom}>
         <div className={styles.planContainer}>
           {tempPlan.map((plan) => {
@@ -67,8 +40,8 @@ const PlanModal = ({
           </button>
         </div>
         <div className={styles.addContainer}>
-          <button className={styles.addBtn} onClick={addPlan}>
-            add
+          <button className={styles.doneBtn} onClick={updatePlan}>
+            done
           </button>
         </div>
       </div>
@@ -76,7 +49,7 @@ const PlanModal = ({
   );
 };
 
-export default PlanModal;
+export default EditModal;
 
 const NewPlan = ({ setTempPlan, setNewPlan }) => {
   const [text, setText] = useState("");

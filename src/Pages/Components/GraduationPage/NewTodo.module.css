@@ -33,3 +33,7 @@
   border: none;
   margin-left: 10px;
 }
+
+.input:focus {
+  outline: none;
+}

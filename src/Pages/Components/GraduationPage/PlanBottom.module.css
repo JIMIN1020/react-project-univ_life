@@ -1,6 +1,8 @@
 .container {
   width: 270px;
   height: 422.5px;
+  display: flex;
+  flex-direction: column;
 }
 
 .container h3 {
@@ -81,4 +83,48 @@
   position: absolute;
   left: 131px;
   margin-top: -3px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: flex-end;
+}
+
+.editBtn {
+  position: absolute;
+  left: 45%;
+  bottom: 20%;
+  background-color: rgb(245, 245, 245);
+  border: none;
+  margin-bottom: -4px;
+  color: rgb(245, 245, 245);
+}
+
+.binBtn {
+  position: absolute;
+  left: 55%;
+  bottom: 20%;
+  background-color: rgb(245, 245, 245);
+  border: none;
+  margin-bottom: -3px;
+  color: rgb(245, 245, 245);
+}
+
+.title:hover {
+  .editBtn,
+  .binBtn {
+    color: gray;
+  }
+}
+
+.editIcon {
+  width: 15px;
+  height: 15px;
+}
+
+.binIcon {
+  width: 14px;
+  height: 14px;
 }
