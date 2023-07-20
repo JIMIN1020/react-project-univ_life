@@ -3,6 +3,8 @@
   height: 422.5px;
   margin-left: 1.5px;
   margin-right: 1.5px;
+  display: flex;
+  flex-direction: column;
 }
 
 .container h3 {
@@ -61,7 +63,7 @@
   display: flex;
   justify-content: space-between;
   position: relative;
-  margin-bottom: -1px;
+  margin-bottom: -2px;
 }
 
 .leftline {
@@ -85,4 +87,47 @@
   position: absolute;
   left: 130.5px;
   top: 47px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.editBtn {
+  position: absolute;
+  left: 45%;
+  top: 20%;
+  background-color: rgb(245, 245, 245);
+  border: none;
+  margin-top: -4px;
+  color: rgb(245, 245, 245);
+}
+
+.binBtn {
+  position: absolute;
+  left: 55%;
+  top: 20%;
+  background-color: rgb(245, 245, 245);
+  border: none;
+  margin-top: -4px;
+  color: rgb(245, 245, 245);
+}
+
+.title:hover {
+  .editBtn,
+  .binBtn {
+    color: gray;
+  }
+}
+
+.editIcon {
+  width: 15px;
+  height: 15px;
+}
+
+.binIcon {
+  width: 14px;
+  height: 14px;
 }
