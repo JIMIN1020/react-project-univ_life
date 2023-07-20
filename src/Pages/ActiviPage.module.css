@@ -109,8 +109,16 @@
   }
 
   .addBtn {
-    color: rgb(0, 48, 135);
-    background-color: rgb(245, 245, 245);
-    border: none;
+    border:0;
+    background-color: #E7E7E7;
+    border-radius: 20px;
+
+    font-size: 35pt;
+    justify-content: center;
+    align-items: center;
+    color: #6B6B6B;
+    
+    width: 300px;
+    height: 200px;
   }
   
