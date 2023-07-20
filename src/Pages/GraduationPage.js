@@ -24,10 +24,17 @@ const GraduationPage = () => {
   ]);
   // 계획 데이터
   const [plan, setPlan] = useState([
-    { id: 2016 - 1, title: `2016학년도 1학기`, plans: [] },
-    { id: 2016 - 2, title: `2016학년도 2학기`, plans: [] },
-    { id: 2017 - 1, title: `2017학년도 1학기`, plans: [] },
-    { id: 2017 - 2, title: `2017학년도 2학기`, plans: [] },
+    {
+      id: 1,
+      title: `2016학년도 1학기`,
+      plans: [
+        { id: 11, text: "토익 900점 이상" },
+        { id: 12, text: "컴활 자격증" },
+      ],
+    },
+    { id: 2, title: `2016학년도 2학기`, plans: [] },
+    { id: 3, title: `2017학년도 1학기`, plans: [] },
+    { id: 4, title: `2017학년도 2학기`, plans: [] },
   ]);
 
   const [addTodo, setAddTodo] = useState(false); // todo 추가 처리를 위한 state
@@ -71,7 +78,6 @@ const GraduationPage = () => {
   /* --------------- 입학년도 변경 시 --------------- */
   const changeEnterYear = () => {
     let n = 0;
-    let term = false;
     plan.map((plan) => {
       plan.title = `${enter + parseInt(n / 2)}학년도 ${(n % 2) + 1}학기`;
       n++;
@@ -198,6 +204,7 @@ const GraduationPage = () => {
                   setCurrentYear={setCurrentYear}
                   currentTerm={currentTerm}
                   setCurrentTerm={setCurrentTerm}
+                  setPlan={setPlan}
                 />
               )}
             </div>
