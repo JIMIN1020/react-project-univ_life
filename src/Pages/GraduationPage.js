@@ -68,7 +68,7 @@ const GraduationPage = () => {
                       />
                     ) : (
                       <>
-                        <span>{enter}년</span>
+                        <span className={styles.date}>{enter}년</span>
                         <button
                           className={styles.editBtn}
                           onClick={() => setEditE(true)}
@@ -93,7 +93,7 @@ const GraduationPage = () => {
                       />
                     ) : (
                       <>
-                        <span>
+                        <span className={styles.date}>
                           {graduate}년 {graduateM}월
                         </span>
                         <button
