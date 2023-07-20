@@ -9,6 +9,14 @@ import NewTodo from "./Components/GraduationPage/NewTodo";
 import { BsPlusCircle, BsPencilSquare } from "react-icons/bs";
 import SelectBox from "./Components/GraduationPage/SelectBox";
 
+// import { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+
 const GraduationPage = () => {
   const [todo, setTodo] = useState([
     { id: Date.now(), value: "토익 900점 이상", completed: false },
@@ -140,11 +148,23 @@ const GraduationPage = () => {
               </div>
             </div>
             <div className={styles.contentBottom}>
-              <PlanBottom />
-              <PlanTop />
-              <PlanBottom />
-              <PlanTop />
-              <PlanBottom />
+              <Swiper slidesPerView={4}>
+                <SwiperSlide key={1}>
+                  <PlanTop />
+                </SwiperSlide>
+                <SwiperSlide key={2}>
+                  <PlanBottom />
+                </SwiperSlide>
+                <SwiperSlide key={3}>
+                  <PlanTop />
+                </SwiperSlide>
+                <SwiperSlide key={4}>
+                  <PlanBottom />
+                </SwiperSlide>
+                <SwiperSlide key={5}>
+                  <PlanTop />
+                </SwiperSlide>
+              </Swiper>
             </div>
           </div>
         </div>
