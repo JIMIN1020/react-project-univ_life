@@ -9,10 +9,10 @@ import BlogPage from "./Pages/BlogPage";
 function App() {
   return (
     <>
-      {/* <GradePage />
-      <ActiviPage /> */}
+      <GradePage />
+      <ActiviPage />
       <GraduationPage />
-      {/* <BlogPage /> */}
+      <BlogPage />
     </>
   );
 }
