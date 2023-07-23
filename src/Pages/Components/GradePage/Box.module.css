@@ -1,0 +1,77 @@
+
+.div2,
+.div3,
+.div4,
+.div5,
+.div6,
+.div7,
+.div8,
+.div9{
+  background-color: white;
+  width: 15%;
+  height: 40%;
+  position: absolute;
+  left: 0;
+  bottom: -20px; /* Adjust the value to change the vertical position */
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.div2 {
+  left: 10px;
+  top: 320px;
+  height: 300px;
+  width: 20%;
+}
+
+.div3 {
+    left: 260px;
+    top: 320px;
+    height: 300px;
+    width: 20%;
+  }
+  
+  .div4 {
+    left: 510px;
+    top: 320px;
+    height: 300px;
+    width: 20%;
+  }
+  
+  .div5 {
+    left: 760px;
+    top: 320px;
+    height: 300px;
+    width: 20%;
+  }
+  
+  .div6 {
+    left: 1010px;
+    top: 320px;
+    height: 300px;
+    width: 20%;
+  }
+  
+  .div7 {
+    left: 1260px;
+    top: 320px;
+    height: 300px;
+    width: 20%;
+  }
+  
+  .div8 {
+    left: 1510px;
+    top: 320px;
+    height: 300px;
+    width: 20%;
+  }
+  
+  .div9 {
+    left: 1760px;
+    top: 320px;
+    height: 300px;
+    width: 20%;
+  }
