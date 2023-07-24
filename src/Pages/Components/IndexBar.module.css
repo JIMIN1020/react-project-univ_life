@@ -10,7 +10,6 @@
 
 .index {
   background-color: rgb(0, 48, 135);
-  /* background-color: rgb(245, 245, 245); */
   color: white;
   font-size: 16px;
   font-weight: 700;
@@ -23,4 +22,26 @@
   margin-left: 20px;
   width: 110px;
   height: 40px;
+}
+
+.index:hover {
+  height: 60px;
+  margin-top: -10px;
+}
+
+.selected {
+  background-color: rgb(245, 245, 245);
+  color: black;
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+  align-items: center;
+  padding-top: 13px;
+
+  border-radius: 10px 10px 0px 0px;
+
+  margin-left: 20px;
+  width: 110px;
+  height: 60px;
+  margin-top: -10px;
 }

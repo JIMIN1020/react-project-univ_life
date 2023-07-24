@@ -1,10 +1,18 @@
 import React from "react";
 import styles from "./Profile.module.css";
+import { FaHouse } from "react-icons/fa6";
 
 const Profile = () => {
   return (
     <div className={styles.profile}>
-      <div className={styles.userImage}> </div>
+      <div className={styles.userImage}>
+        <img
+          src={process.env.PUBLIC_URL + "/Images/noonsong.gif"}
+          className={styles.img}
+          width="130px"
+          alt="img"
+        />
+      </div>
       <div className={styles.text1}>
         눈송이
         <br />
@@ -15,6 +23,14 @@ const Profile = () => {
         학교 | 숙명여자대학교 <br />
         학번 | 200000 <br />
         학과 | IT공학과
+      </div>
+      <div className={styles.buttonBox}>
+        <label>
+          <button className={styles.homeBtn}>
+            <FaHouse style={{ width: "25px", height: "25px" }} />
+          </button>
+          <span>HOME</span>
+        </label>
       </div>
     </div>
   );

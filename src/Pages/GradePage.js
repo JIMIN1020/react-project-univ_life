@@ -181,7 +181,7 @@ const GradePage = () => {
         <h1>대학 생활 기록 웹사이트</h1>
       </div>
       <div className={styles.bottom}>
-        <IndexBar />
+        <IndexBar id={1}/>
         <div className={styles.contents}>
           <Profile />
           <div className={styles.contentBox} ref={contentBoxRef}>
