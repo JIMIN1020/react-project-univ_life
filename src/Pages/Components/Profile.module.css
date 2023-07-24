@@ -50,21 +50,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  color: white;
 }
 
 .buttonBox span {
   font-size: 18px;
-  color: white;
   font-weight: 600;
+  margin-left: 10px;
 }
 
-.homeBtn {
-  background-color: none;
-  width: 35px;
-  height: 35px;
-  margin-left: -10px;
-  margin-top: 3px;
-  color: white;
-  border: none;
-  background: none;
+.buttonBox:hover {
+  color: rgb(184, 184, 184);
+  border-bottom: 2px solid rgb(184, 184, 184);
 }

@@ -12,6 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import PlanModal from "./Components/GraduationPage/PlanModal";
 import EditModal from "./Components/GraduationPage/EditModal";
+import { Link } from "react-router-dom";
 
 const GraduationPage = () => {
   // todo 데이터 (임시 데이터 2개)
@@ -112,7 +113,7 @@ const GraduationPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-        <h1>대학 생활 기록 웹사이트</h1>
+      <Link to="/" style={{ textDecoration: "none" }}><h1>대학 생활 기록 웹사이트</h1></Link>
       </div>
       <div className={styles.bottom}>
         <IndexBar id={3} />

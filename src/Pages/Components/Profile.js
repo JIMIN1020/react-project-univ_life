@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Profile.module.css";
 import { FaHouse } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   return (
@@ -24,14 +25,13 @@ const Profile = () => {
         학번 | 200000 <br />
         학과 | IT공학과
       </div>
-      <div className={styles.buttonBox}>
-        <label>
-          <button className={styles.homeBtn}>
-            <FaHouse style={{ width: "25px", height: "25px" }} />
-          </button>
+
+      <Link to="/" style={{ textDecoration: "none" }}>
+        <div className={styles.buttonBox}>
+          <FaHouse style={{ width: "25px", height: "25px" }} />
           <span>HOME</span>
-        </label>
-      </div>
+        </div>
+      </Link>
     </div>
   );
 };
