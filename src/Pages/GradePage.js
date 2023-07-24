@@ -119,18 +119,20 @@ const GradePage = () => {
   };
 
   const calculateTotalCredits = () => {
-    const totalCredits =
-      div2Contents.length +
-      div3Contents.length +
-      div4Contents.length +
-      div5Contents.length +
-      div6Contents.length +
-      div7Contents.length +
-      div8Contents.length +
-      div9Contents.length;
+    let totalCredits = 0;
+
+    if (isDiv2Visible) totalCredits += {calculateTotalCredits};
+    if (isDiv3Visible) totalCredits += {calculateTotalCredits};
+    if (isDiv4Visible) totalCredits += {calculateTotalCredits};
+    if (isDiv5Visible) totalCredits += parseInt(creditInput) * div5Contents.length;
+    if (isDiv6Visible) totalCredits += parseInt(creditInput) * div6Contents.length;
+    if (isDiv7Visible) totalCredits += parseInt(creditInput) * div7Contents.length;
+    if (isDiv8Visible) totalCredits += parseInt(creditInput) * div8Contents.length;
+    if (isDiv9Visible) totalCredits += parseInt(creditInput) * div9Contents.length;
 
     return totalCredits;
   };
+
 
   const calculateGPA = () => {
     const subjects = [
@@ -188,10 +190,7 @@ const GradePage = () => {
           <div className={styles.contentBox} ref={contentBoxRef}>
             <div className={styles.contentTop}>
               <div className={styles.div1}>
-                <div className={styles.div1Label}>
-                  <div>이수 학점: {calculateTotalCredits()}</div>
-                  <div>평균 학점: {calculateGPA()}</div>
-                </div>
+                
                 <div className={styles.div1Contents}>
                   <div className={styles.label}>
                     {"세부 성적 입력란(8학기까지 입력 가능합니다.)"}

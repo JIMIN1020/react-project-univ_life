@@ -27,20 +27,87 @@ const Box2 = () => {
 
   const addSubjectToDiv2 = () => {
     const newSubject = `${subjectInput} - ${gradeInput}(${creditInput}학점)`;
-  
+
     const isSubjectExists = div2Contents.some(
       (subject) => subject.startsWith(`${subjectInput} - ${gradeInput}`)
     );
-  
+
     if (!isSubjectExists) {
       setDiv2Contents((prevContents) => prevContents.concat(newSubject));
     }
-  
+
     setSubjectInput("");
     setCreditInput("1");
     setGradeInput("A+");
   };
+
+  const calculateTotalCredits = () => {
+    let totalCredits = 0;
+
+    div2Contents.forEach((subject) => {
+      const credit = parseInt(subject.match(/\((\d+)학점\)/)[1]);
+      totalCredits += credit;
+    });
+
+    return totalCredits;
+  };
+
+  const calculateGPA = () => {
+    let totalGradePoints = 0;
+    let totalCredits = 0;
   
+    div2Contents.forEach((subject) => {
+      const creditMatch = subject.match(/\((\d+)학점\)/);
+      const gradeMatch = subject.match(/- ([A-F][+\-]?)/);
+  
+      if (creditMatch && gradeMatch) {
+        const credit = parseInt(creditMatch[1]);
+        const grade = convertGradeToValue(gradeMatch[1]);
+        totalGradePoints += credit * grade;
+        totalCredits += credit;
+      }
+    });
+  
+    if (totalCredits === 0) {
+      return 0;
+    }
+  
+    const gpa = totalGradePoints / totalCredits;
+    return gpa.toFixed(2);
+  };
+  
+  const convertGradeToValue = (grade) => {
+    switch (grade) {
+      case "A+":
+        return 4.5;
+      case "A":
+        return 4.0;
+      case "A-":
+        return 3.7;
+      case "B+":
+        return 3.3;
+      case "B":
+        return 3.0;
+      case "B-":
+        return 2.7;
+      case "C+":
+        return 2.3;
+      case "C":
+        return 2.0;
+      case "C-":
+        return 1.7;
+      case "D+":
+        return 1.3;
+      case "D":
+        return 1.0;
+      case "D-":
+        return 0.7;
+      case "F":
+        return 0.0;
+      default:
+        return 0.0;
+    }
+  };
   
 
   return (
@@ -71,7 +138,7 @@ const Box2 = () => {
             <option value="C-">C-</option>
             <option value="D+">D+</option>
             <option value="D">D</option>
-            <option value="D">D-</option>
+            <option value="D-">D-</option>
             <option value="F">F</option>
           </select>
           <button onClick={addSubjectToDiv2}>추가</button>
@@ -82,6 +149,8 @@ const Box2 = () => {
           </div>
         ))}
       </div>
+      <div>이수 학점: {calculateTotalCredits()}</div>
+      <div>평균 학점: {calculateGPA()}</div>
     </div>
   );
 };
