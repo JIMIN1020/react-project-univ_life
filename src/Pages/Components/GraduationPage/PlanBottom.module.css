@@ -13,7 +13,7 @@
 
 .planBox {
   width: 270px;
-  height: 161.4px;
+  height: 165px;
 
   display: flex;
   flex-direction: column;
@@ -90,6 +90,7 @@
   flex-direction: column;
   position: relative;
   justify-content: flex-end;
+  height: 213px;
 }
 
 .editBtn {
