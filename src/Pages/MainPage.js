@@ -1,14 +1,17 @@
+import { useState } from "react";
 import styles from "./MainPage.module.css";
 import {
   BsFileEarmarkBarGraph,
   BsFiles,
-  BsStickies,
   BsBookmarkStar,
   BsMortarboard,
   BsFileText,
 } from "react-icons/bs";
+import LinkModal from "./Components/MainPage/LinkModal";
 
 const MainPage = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -17,25 +20,36 @@ const MainPage = () => {
       <div className={styles.bottom}>
         <div className={styles.menuContainer}>
           <div className={styles.iconContainer}>
-            <BsFileEarmarkBarGraph className={styles.icon} />
-            <span>성적</span>
+            <button>
+              <BsFileEarmarkBarGraph className={styles.icon} />
+              <span>성적</span>
+            </button>
           </div>
           <div className={styles.iconContainer}>
-            <BsFiles className={styles.icon} />
-            <span>활동</span>
+            <button>
+              <BsFiles className={styles.icon} />
+              <span>활동</span>
+            </button>
           </div>
           <div className={styles.iconContainer}>
-            <BsMortarboard className={styles.icon} />
-            <span>졸업</span>
-          </div>
-          <div className={styles.iconContainer} style={{ marginRight: "16px" }}>
-            <BsFileText className={styles.icon} />
-            <span>블로그</span>
+            <button>
+              <BsMortarboard className={styles.icon} />
+              <span>졸업</span>
+            </button>
           </div>
           <div className={styles.iconContainer}>
-            <BsBookmarkStar className={styles.icon} />
-            <span>링크</span>
+            <button>
+              <BsFileText className={styles.icon} />
+              <span>블로그</span>
+            </button>
           </div>
+          <div className={styles.iconContainer}>
+            <button onClick={() => setModalOpen((prev) => !prev)}>
+              <BsBookmarkStar className={styles.icon} />
+              <span>링크</span>
+            </button>
+          </div>
+          {modalOpen && <LinkModal setModalOpen={setModalOpen} />}
         </div>
         <div className={styles.profile}>
           <div className={styles.title}>

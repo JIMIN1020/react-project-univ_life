@@ -43,10 +43,10 @@
   border-radius: 40px;
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.16), 0 5px 8px rgba(0, 0, 0, 0.23);
   box-sizing: border-box;
-  padding: 40px 0px;
+  padding: 35px 0px;
   display: flex;
   flex-direction: column;
-  padding-left: 100px;
+  padding-left: 90px;
 }
 
 .iconContainer {
@@ -58,17 +58,26 @@
 }
 
 .iconContainer span {
-  color: white;
   font-size: 14px;
   font-weight: 700;
   text-align: center;
   margin-top: 5px;
 }
 
+.iconContainer button {
+  background: none;
+  border: none;
+  width: 55px;
+  color: white;
+}
+
+.iconContainer button:hover {
+  color: rgb(213, 213, 213);
+}
+
 .icon {
   width: 35px;
   height: 35px;
-  color: white;
 }
 
 .leftside {
