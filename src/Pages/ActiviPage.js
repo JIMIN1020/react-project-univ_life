@@ -3,6 +3,7 @@ import styles from "./ActiviPage.module.css";
 import Profile from "./Components/Profile";
 import IndexBar from "./Components/IndexBar";
 import ActiviModal from "./Components/ActiviPage/ActiviModal";
+import { Link } from "react-router-dom";
 
 const ActiviPage = () => {
   const [activi,setActivi] = useState([]);
@@ -24,7 +25,7 @@ const ActiviPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-        <h1>대학 생활 기록 웹사이트</h1>
+        <Link to="/" style={{ textDecoration: "none" }}><h1>대학 생활 기록 웹사이트</h1></Link>
       </div>
       <div className={styles.bottom}>
         <IndexBar id={2} />

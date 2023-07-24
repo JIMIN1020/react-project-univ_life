@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import styles from "./LinkModal.module.css";
 
 const LinkModal = () => {

@@ -11,6 +11,7 @@ import Box6 from "./Components/GradePage/Box6";
 import Box7 from "./Components/GradePage/Box7";
 import Box8 from "./Components/GradePage/Box8";
 import Box9 from "./Components/GradePage/Box9";
+import { Link } from "react-router-dom";
 
 const GradePage = () => {
   const [isDiv2Visible, setDiv2Visible] = useState(false);
@@ -178,7 +179,7 @@ const GradePage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-        <h1>대학 생활 기록 웹사이트</h1>
+      <Link to="/" style={{ textDecoration: "none" }}><h1>대학 생활 기록 웹사이트</h1></Link>
       </div>
       <div className={styles.bottom}>
         <IndexBar id={1}/>

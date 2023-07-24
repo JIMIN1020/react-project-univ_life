@@ -8,6 +8,7 @@ import {
   BsFileText,
 } from "react-icons/bs";
 import LinkModal from "./Components/MainPage/LinkModal";
+import { Link } from "react-router-dom";
 
 const MainPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -19,32 +20,38 @@ const MainPage = () => {
       </div>
       <div className={styles.bottom}>
         <div className={styles.menuContainer}>
-          <div className={styles.iconContainer}>
-            <button>
+          <Link to="/grade" style={{ textDecoration: "none" }}>
+            <div className={styles.iconContainer}>
               <BsFileEarmarkBarGraph className={styles.icon} />
               <span>성적</span>
-            </button>
-          </div>
-          <div className={styles.iconContainer}>
-            <button>
+            </div>
+          </Link>
+          <Link to="/activity" style={{ textDecoration: "none" }}>
+            <div className={styles.iconContainer}>
               <BsFiles className={styles.icon} />
               <span>활동</span>
-            </button>
-          </div>
-          <div className={styles.iconContainer}>
-            <button>
+            </div>
+          </Link>
+          <Link to="/graduation" style={{ textDecoration: "none" }}>
+            <div className={styles.iconContainer}>
               <BsMortarboard className={styles.icon} />
               <span>졸업</span>
-            </button>
-          </div>
-          <div className={styles.iconContainer}>
-            <button>
+            </div>
+          </Link>
+          <Link to="/blog" style={{ textDecoration: "none" }}>
+            <div
+              className={styles.iconContainer}
+              style={{ marginRight: "16px" }}
+            >
               <BsFileText className={styles.icon} />
               <span>블로그</span>
-            </button>
-          </div>
+            </div>
+          </Link>
           <div className={styles.iconContainer}>
-            <button onClick={() => setModalOpen((prev) => !prev)}>
+            <button
+              onClick={() => setModalOpen((prev) => !prev)}
+              style={{ marginLeft: "-6px" }}
+            >
               <BsBookmarkStar className={styles.icon} />
               <span>링크</span>
             </button>

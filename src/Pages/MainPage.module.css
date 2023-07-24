@@ -46,7 +46,7 @@
   padding: 35px 0px;
   display: flex;
   flex-direction: column;
-  padding-left: 90px;
+  padding-left: 100px;
 }
 
 .iconContainer {
@@ -55,6 +55,7 @@
   margin-left: 15px;
   margin-right: 20px;
   margin-bottom: 20px;
+  color: white;
 }
 
 .iconContainer span {
@@ -64,10 +65,14 @@
   margin-top: 5px;
 }
 
+.iconContainer:hover {
+  color: rgb(213, 213, 213);
+}
+
 .iconContainer button {
   background: none;
   border: none;
-  width: 55px;
+  width: 45px;
   color: white;
 }
 
