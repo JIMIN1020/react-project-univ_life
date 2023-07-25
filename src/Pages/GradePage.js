@@ -13,6 +13,21 @@ import Box8 from "./Components/GradePage/Box8";
 import Box9 from "./Components/GradePage/Box9";
 import { Link } from "react-router-dom";
 
+const TodoItem = ({ text, isChecked, onCheck }) => {
+  return (
+    <div>
+      <input
+        type="checkbox"
+        checked={isChecked}
+        onChange={onCheck}
+      />
+      <span style={{ textDecoration: isChecked ? "line-through" : "none" }}>
+        {text}
+      </span>
+    </div>
+  );
+};
+
 const GradePage = () => {
   const [isDiv2Visible, setDiv2Visible] = useState(false);
   const [isDiv3Visible, setDiv3Visible] = useState(false);
@@ -133,7 +148,6 @@ const GradePage = () => {
     return totalCredits;
   };
 
-
   const calculateGPA = () => {
     const subjects = [
       ...div2Contents,
@@ -178,25 +192,75 @@ const GradePage = () => {
     },
   });
 
+  const [todoInput, setTodoInput] = useState("");
+  const [todos, setTodos] = useState([]);
+
+  const handleTodoInputChange = (event) => {
+    setTodoInput(event.target.value);
+  };
+
+  const handleAddTodo = () => {
+    if (todoInput.trim() !== "") {
+      setTodos((prevTodos) => [...prevTodos, { text: todoInput, isChecked: false }]);
+      setTodoInput("");
+    }
+  };
+
+  const handleTodoCheck = (index) => {
+    setTodos((prevTodos) => {
+      const updatedTodos = [...prevTodos];
+      updatedTodos[index].isChecked = !updatedTodos[index].isChecked;
+      return updatedTodos;
+    });
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-      <Link to="/" style={{ textDecoration: "none" }}><h1>대학 생활 기록 웹사이트</h1></Link>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <h1>대학 생활 기록 웹사이트</h1>
+        </Link>
       </div>
       <div className={styles.bottom}>
         <IndexBar id={1}/>
         <div className={styles.contents}>
           <Profile />
-          <div className={styles.contentBox} ref={contentBoxRef}>
+          <div className={styles.contentBox} {...swipeHandlers} ref={contentBoxRef}>
             <div className={styles.contentTop}>
               <div className={styles.div1}>
-                
+                <div className={styles.todoList}>
+                  <div className={styles.todoInput}>
+                    <h3>오늘의 계획</h3>
+                    <input
+                      type="text"
+                      placeholder="할 일을 입력하세요"
+                      value={todoInput}
+                      onChange={handleTodoInputChange}
+                    />
+                    <button onClick={handleAddTodo}>추가</button>
+                  </div>
+                  <div className={styles.todos}>
+                    {todos.map((todo, index) => (
+                      <TodoItem
+                        key={index}
+                        text={todo.text}
+                        isChecked={todo.isChecked}
+                        onCheck={() => handleTodoCheck(index)}
+                      />
+                    ))}
+                  </div>
+                </div>
+                <div className={styles.div10}>
+                  <h3>열람실 현황</h3>
+                  <p>5층 상상라운지 - 잔여좌석: 21</p>
+                  <p>5층 C.C Plaza - 잔여좌석: 52</p>
+                  <p>5층 송영숙미디어랩 - 잔여좌석: 0</p>
+                </div>
                 <div className={styles.div1Contents}>
                   <div className={styles.label}>
                     {"세부 성적 입력란(8학기까지 입력 가능합니다.)"}
                     <button onClick={handleAddButtonClick}>추가하기</button>
                   </div>
-                  {/* Div2 컴포넌트 사용 */}
                   {isDiv2Visible && <Box2 />}
                   {isDiv3Visible && <Box3 />}
                   {isDiv4Visible && <Box4 />}
