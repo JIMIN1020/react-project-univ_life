@@ -1,18 +1,42 @@
 import React from "react";
 import styles from "./PlanTop.module.css";
+import { BsRecordFill, BsPencilSquare, BsFillTrash3Fill } from "react-icons/bs";
 
-const PlanTop = () => {
+const PlanTop = ({ plan, setEditModal, setEditPlan, deletePlan }) => {
+  const handleClick = () => {
+    setEditPlan(plan);
+    setEditModal(true);
+  };
   return (
     <div className={styles.container}>
       <div className={styles.planBox}>
-        <div className={styles.plan}></div>
+        <div className={styles.plan}>
+          {plan.plans.map((plan) => {
+            return (
+              <div className={styles.line}>
+                <BsRecordFill className={styles.icon} />
+                <span>{plan.text}</span>
+              </div>
+            );
+          })}
+        </div>
       </div>
       <div className={styles.lines}>
         <div className={styles.leftline}></div>
         <div className={styles.circle}></div>
         <div className={styles.rightline}></div>
       </div>
-      <h3>2022학년도 2학기</h3>
+      <div className={styles.title}>
+        <h3>{plan.title}</h3>
+        <button className={styles.editBtn} onClick={handleClick}>
+          <BsPencilSquare className={styles.editIcon} />
+        </button>
+        {plan.removable && (
+          <button className={styles.binBtn} onClick={() => deletePlan(plan.id)}>
+            <BsFillTrash3Fill className={styles.binIcon} />
+          </button>
+        )}
+      </div>
     </div>
   );
 };

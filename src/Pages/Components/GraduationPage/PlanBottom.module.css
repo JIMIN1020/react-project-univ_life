@@ -1,6 +1,8 @@
 .container {
   width: 270px;
-  height: 100%;
+  height: 422.5px;
+  display: flex;
+  flex-direction: column;
 }
 
 .container h3 {
@@ -11,7 +13,7 @@
 
 .planBox {
   width: 270px;
-  height: 38%;
+  height: 165px;
 
   display: flex;
   flex-direction: column;
@@ -20,11 +22,37 @@
 
 .plan {
   background-color: white;
-  width: 80%;
-  height: 60%;
+  width: 216px;
+  height: 97px;
 
   border-radius: 20px;
   box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.16);
+
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding: 15px 20px;
+  overflow-y: auto;
+}
+
+.plan::-webkit-scrollbar {
+  display: none;
+}
+
+.line {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.line span {
+  font-size: 14px;
+}
+
+.icon {
+  width: 10px;
+  height: 10px;
+  margin-right: 7px;
 }
 
 .lines {
@@ -55,4 +83,49 @@
   position: absolute;
   left: 131px;
   margin-top: -3px;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  justify-content: flex-end;
+  height: 213px;
+}
+
+.editBtn {
+  position: absolute;
+  left: 45%;
+  bottom: 20%;
+  background-color: rgb(245, 245, 245);
+  border: none;
+  margin-bottom: -4px;
+  color: rgb(245, 245, 245);
+}
+
+.binBtn {
+  position: absolute;
+  left: 55%;
+  bottom: 20%;
+  background-color: rgb(245, 245, 245);
+  border: none;
+  margin-bottom: -3px;
+  color: rgb(245, 245, 245);
+}
+
+.title:hover {
+  .editBtn,
+  .binBtn {
+    color: gray;
+  }
+}
+
+.editIcon {
+  width: 15px;
+  height: 15px;
+}
+
+.binIcon {
+  width: 14px;
+  height: 14px;
 }

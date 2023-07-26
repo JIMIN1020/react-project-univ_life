@@ -5,6 +5,7 @@ import IndexBar from "./Components/IndexBar";
 import Card from "./Components/BlogPage/Card";
 import BlogModal from "./Components/BlogPage/BlogModal";
 import NewBlogModal from "./Components/BlogPage/NewBlogModal";
+import { Link } from "react-router-dom";
 
 export const BlogPage = () => {
 
@@ -33,20 +34,22 @@ export const BlogPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-        <h1>대학 생활 기록 웹사이트</h1>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <h1>대학 생활 기록 웹사이트</h1>
+        </Link>
       </div>
       <div className={styles.bottom}>
-        <IndexBar />
+        <IndexBar id={4} />
         <div className={styles.contents}>
           <Profile />
           <div className={styles.contentBox}>
             <div className={styles.category_bar}>
-                <text className={styles.text}>category</text>
-                <button className={styles.category_btn}>All</button>
-                <button className={styles.category_btn}>일상</button>
-                <button className={styles.category_btn}>메모</button>
-                <button className={styles.category_btn}>기타</button>
-                <button className={styles.category_add}>+add</button>
+              <text className={styles.text}>category</text>
+              <button className={styles.category_btn}>All</button>
+              <button className={styles.category_btn}>일상</button>
+              <button className={styles.category_btn}>메모</button>
+              <button className={styles.category_btn}>기타</button>
+              <button className={styles.category_add}>+add</button>
             </div>
             <div>
                 <section className={styles.cardsList}>

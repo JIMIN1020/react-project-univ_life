@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styles from "./NewTodo.module.css";
-import { BsCheckSquare, BsCheckSquareFill, BsCheck2 } from "react-icons/bs";
+import { BsCheckSquare, BsCheck2 } from "react-icons/bs";
 
-const NewTodo = ({ todo, setTodo, setEditing }) => {
+const NewTodo = ({ todo, setTodo, setAddTodo }) => {
   const [text, setText] = useState("");
 
   /* --------------- 입력 값 처리 --------------- */
@@ -21,7 +21,7 @@ const NewTodo = ({ todo, setTodo, setEditing }) => {
     };
 
     setTodo([...todo, newTodo]);
-    setEditing(false);
+    setAddTodo(false);
   };
 
   return (

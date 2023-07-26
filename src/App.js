@@ -3,13 +3,20 @@ import GradePage from "./Pages/GradePage";
 import GraduationPage from "./Pages/GraduationPage";
 import ActiviPage from "./Pages/ActiviPage";
 import MainPage from "./Pages/MainPage";
-import Page from "./Pages/Page";
 import BlogPage from "./Pages/BlogPage";
-import NewBlogModal from "./Pages/Components/BlogPage/NewBlogModal";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <><BlogPage /><GradePage /><GraduationPage /><ActiviPage /><MainPage /></>
+    <>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="grade" element={<GradePage />} />
+        <Route path="activity" element={<ActiviPage />} />
+        <Route path="graduation" element={<GraduationPage />} />
+        <Route path="blog" element={<BlogPage />} />
+      </Routes>
+    </>
   );
 }
 

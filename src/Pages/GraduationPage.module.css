@@ -55,7 +55,7 @@
   box-shadow: 5px 8px 10px rgba(0, 0, 0, 0.16);
 
   margin-left: 120px;
-  margin-top: 30px;
+  margin-top: 15px;
 }
 
 .line1 {
@@ -64,6 +64,33 @@
   align-items: center;
   margin-top: 5px;
   margin-bottom: -10px;
+}
+
+.textBox {
+  display: flex;
+  justify-content: space-between;
+  width: 200px;
+  height: 75px;
+  align-items: center;
+}
+
+.editBtn {
+  background-color: white;
+  border: none;
+  width: 20px;
+  margin-right: 25px;
+}
+
+.icon {
+  width: 17px;
+  height: 17px;
+  color: white;
+}
+
+.textBox:hover {
+  .icon {
+    color: gray;
+  }
 }
 
 .line2 {
@@ -80,7 +107,7 @@
   box-shadow: 5px 8px 10px rgba(0, 0, 0, 0.16);
 
   margin-right: 120px;
-  margin-top: 30px;
+  margin-top: 15px;
 
   display: flex;
 }
@@ -122,16 +149,24 @@
 
 .contentBottom {
   width: 1080px;
-  height: 65%;
+  height: 422.5px;
 
   display: flex;
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
+  position: relative;
 }
 
-.contentBottom::-webkit-scrollbar {
-  display: none;
+.contentBottom h2 {
+  position: absolute;
+  margin: 15px 25px;
+  font-size: 17px;
+  font-weight: 550;
+  background-image: linear-gradient(
+    rgb(245, 245, 245) 55%,
+    rgba(0, 47, 135, 0.166) 45%
+  );
 }
 
 .addBtn {
@@ -140,4 +175,23 @@
   color: rgb(0, 48, 135);
   background-color: white;
   border: none;
+}
+
+.Btn {
+  width: 20px;
+  height: 20px;
+  color: rgb(0, 48, 135);
+  background-color: rgb(245, 245, 245);
+  border: none;
+  position: absolute;
+  top: 17px;
+  left: 110px;
+  z-index: 999;
+}
+
+.date {
+  font-size: 16px;
+  font-weight: 500;
+  background-image: linear-gradient(white 55%, rgba(0, 47, 135, 0.166) 45%);
+  transition: all 2s;
 }

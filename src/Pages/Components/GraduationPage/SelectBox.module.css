@@ -1,0 +1,24 @@
+.selectBox {
+  width: 75px;
+  height: 30px;
+  border-radius: 10px;
+  text-align: center;
+}
+.selectBox2 {
+  width: 55px;
+  height: 30px;
+  border-radius: 10px;
+  text-align: center;
+  margin-left: -10px;
+}
+
+.okBtn {
+  background-color: white;
+  border: none;
+}
+
+.icon {
+  width: 18px;
+  height: 18px;
+  margin-right: 15px;
+}
