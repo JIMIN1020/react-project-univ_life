@@ -102,9 +102,22 @@
 .cardsList {
   display: flex;
   flex-flow: row wrap;
+  overflow-y: auto;
+  width: 1080px;
+  height: 539.2px;
+}
+
+.cardsList::-webkit-scrollbar {
+  display: none;
+}
+
+.cardsList {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .card_add {
+  display: flex;
   background-color: #E7E7E7;
   width: 450px;
   height: 120px;
@@ -116,4 +129,10 @@
   justify-content: center;
   align-items: center;
   color: #6B6B6B;
+  cursor: pointer;
+  transition: all 0.1s linear;
+}
+
+.card_add:hover {
+  transform: scale(1.03);
 }

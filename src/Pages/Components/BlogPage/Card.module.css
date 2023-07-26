@@ -4,8 +4,14 @@
     width: 450px;
     height: 120px;
     border-radius: 20px;
-    margin: 20px 0px 5px 35px;
+    margin: 20px 0px 10px 35px;
     padding: 10pt;
+    cursor: pointer;
+    transition: all 0.1s linear;
+}
+
+.card:hover {
+    transform: scale(1.03);
 }
 
 .main {
@@ -30,7 +36,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
     outline: none;
     border: none;
     font-size: 10pt;
