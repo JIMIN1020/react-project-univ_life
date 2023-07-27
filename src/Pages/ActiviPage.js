@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styles from "./ActiviPage.module.css";
-import Profile from "./Components/Profile";
-import IndexBar from "./Components/IndexBar";
-import ActiviModal from "./Components/ActiviPage/ActiviModal";
+import Profile from "../Components/Profile"
+import IndexBar from "../Components/IndexBar";
+import ActiviModal from "../Components/ActiviPage/ActiviModal";
 import { BsPlusCircle } from 'react-icons/bs';
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from 'swiper/react';

@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styles from "./GraduationPage.module.css";
-import Profile from "./Components/Profile";
-import IndexBar from "./Components/IndexBar";
-import PlanBottom from "./Components/GraduationPage/PlanBottom";
-import PlanTop from "./Components/GraduationPage/PlanTop";
-import Todo from "./Components/GraduationPage/Todo";
-import NewTodo from "./Components/GraduationPage/NewTodo";
+import Profile from "../Components/Profile";
+import IndexBar from "../Components/IndexBar";
+import PlanBottom from "../Components/GraduationPage/PlanBottom";
+import PlanTop from "../Components/GraduationPage/PlanTop";
+import Todo from "../Components/GraduationPage/Todo";
+import NewTodo from "../Components/GraduationPage/NewTodo";
 import { BsPlusCircle, BsPencilSquare } from "react-icons/bs";
-import SelectBox from "./Components/GraduationPage/SelectBox";
+import SelectBox from "../Components/GraduationPage/SelectBox";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import PlanModal from "./Components/GraduationPage/PlanModal";
-import EditModal from "./Components/GraduationPage/EditModal";
+import PlanModal from "../Components/GraduationPage/PlanModal";
+import EditModal from "../Components/GraduationPage/EditModal";
 import { Link } from "react-router-dom";
 
 const GraduationPage = () => {
