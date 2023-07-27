@@ -1,16 +1,16 @@
 import React, { useState, useRef, useEffect } from "react";
 import styles from "./GradePage.module.css";
-import Profile from "./Components/Profile";
-import IndexBar from "./Components/IndexBar";
+import Profile from "../Components/Profile";
+import IndexBar from "../Components/IndexBar";
 import { useSwipeable } from "react-swipeable";
-import Box2 from "./Components/GradePage/Box2";
-import Box3 from "./Components/GradePage/Box3";
-import Box4 from "./Components/GradePage/Box4";
-import Box5 from "./Components/GradePage/Box5";
-import Box6 from "./Components/GradePage/Box6";
-import Box7 from "./Components/GradePage/Box7";
-import Box8 from "./Components/GradePage/Box8";
-import Box9 from "./Components/GradePage/Box9";
+import Box2 from "../Components/GradePage/Box2";
+import Box3 from "../Components/GradePage/Box3";
+import Box4 from "../Components/GradePage/Box4";
+import Box5 from "../Components/GradePage/Box5";
+import Box6 from "../Components/GradePage/Box6";
+import Box7 from "../Components/GradePage/Box7";
+import Box8 from "../Components/GradePage/Box8";
+import Box9 from "../Components/GradePage/Box9";
 import { Link } from "react-router-dom";
 
 const TodoItem = ({ text, isChecked, onCheck }) => {

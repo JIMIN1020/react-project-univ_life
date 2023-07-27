@@ -1,23 +1,23 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState } from "react";
 import styles from "./BlogModal.module.css";
-import useOnClickOutside from './useOnClickOutside';
+import useOnClickOutside from "./useOnClickOutside";
 
-
-function BlogModal({
-  blog,
-  setModalOpen
-}) {
+function BlogModal({ blog, setModalOpen }) {
   const { title, date, type, content } = blog;
-  
 
-const ref = useRef();
-useOnClickOutside(ref, () => {setModalOpen(false)})
+  const ref = useRef();
+  useOnClickOutside(ref, () => {
+    setModalOpen(false);
+  });
 
   return (
     <div className={styles.presentation}>
       <div className={styles.wrapper_modal}>
         <div className={styles.modal} ref={ref}>
-          <span onClick={() => setModalOpen(false)} className={styles.modal_close}>
+          <span
+            onClick={() => setModalOpen(false)}
+            className={styles.modal_close}
+          >
             X
           </span>
 
@@ -32,7 +32,7 @@ useOnClickOutside(ref, () => {setModalOpen(false)})
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default BlogModal
+export default BlogModal;

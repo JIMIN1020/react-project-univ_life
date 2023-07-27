@@ -7,7 +7,7 @@ import {
   BsMortarboard,
   BsFileText,
 } from "react-icons/bs";
-import LinkModal from "./Components/MainPage/LinkModal";
+import LinkModal from "../Components/MainPage/LinkModal";
 import { Link } from "react-router-dom";
 
 const MainPage = () => {
