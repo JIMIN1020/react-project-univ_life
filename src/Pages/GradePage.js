@@ -180,12 +180,12 @@ const GradePage = () => {
   };
 
   const swipeHandlers = useSwipeable({
-    onSwipedLeft: () => {
+    onSwipedUp: () => {
       if (div6Ref.current) {
         div6Ref.current.scrollLeft += 200;
       }
     },
-    onSwipedRight: () => {
+    onSwipedDown: () => {
       if (div6Ref.current) {
         div6Ref.current.scrollLeft -= 200;
       }
