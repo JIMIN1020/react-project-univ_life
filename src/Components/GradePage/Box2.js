@@ -108,6 +108,7 @@ const Box2 = () => {
         return 0.0;
     }
   };
+
   
 
   return (
@@ -153,6 +154,10 @@ const Box2 = () => {
       <div>평균 학점: {calculateGPA()}</div>
     </div>
   );
+
+  
 };
 
 export default Box2;
+
+

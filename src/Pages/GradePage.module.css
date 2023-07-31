@@ -164,6 +164,18 @@
   margin-top: 40px;
 }
 
+.h3 {
+  position: absolute;
+  background-color: white;
+  width: 400px;
+  height: 380px;
+  box-shadow: 5px 8px 10px rgba(0, 0, 0, 0.16);
+  left: 0px;
+  top: 220px;
+  margin-left: 40px;
+  margin-top: 40px; 
+}
+
 .div1Label{
   top: 20%;
   position: relative;
