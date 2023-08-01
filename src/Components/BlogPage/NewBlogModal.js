@@ -1,10 +1,13 @@
 import React, { useRef, useState } from 'react';
 import useOnClickOutside from "./useOnClickOutside";
 import styles from "./NewBlogModal.module.css";
+import { TextareaAutosize } from '@mui/base';
+import moment from 'moment/moment';
 
 function NewBlogModal({
   setNewModalOpen,
-  addNewBlog
+  addNewBlog,
+  options
 }) {
 
   const ref = useRef();
@@ -13,11 +16,8 @@ function NewBlogModal({
   const [title, setTitle] = useState("");
   const [type, setType] = useState("");
   const [content, setContent] = useState("");
-  const options = [
-    {value: "daily", name: "일상"},
-    {value: "memo", name: "메모"},
-    {value: "etc", name: "기타"},
-  ]
+
+  const nowTime = moment().format("YYYY.MM.DD HH:mm:ss");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,12 +26,15 @@ function NewBlogModal({
         id: Date.now(),
         title: title,
         type: type,
+        date: nowTime,
         content: content,
     };
 
     const selectedOption = options.find((option) => option.value === type);
     if (selectedOption) {
       newBlog.type = selectedOption.name;
+    } else {
+      newBlog.type = options[0].name;
     }
 
     addNewBlog(newBlog);
@@ -43,7 +46,7 @@ function NewBlogModal({
     setNewModalOpen(false);
   }
 
-  const SelectType = (props) => {
+  const NewSelectType = (props) => {
     return (
         <select className={styles.modal__type} value={type} onChange={typeChange}>
             {props.options.map((option) => (
@@ -59,15 +62,15 @@ function NewBlogModal({
   }
 
   const titleChange = (e) => {
-    setTitle(e.target.value)
+    setTitle(e.target.value);
   }
 
   const typeChange = (e) => {
-    setType(e.target.value)
+    setType(e.target.value);
   }
 
   const contentChange = (e) => {
-    setContent(e.target.value)
+    setContent(e.target.value);
   }
 
   return (
@@ -79,7 +82,7 @@ function NewBlogModal({
               <span onClick={() => setNewModalOpen(false)} className={styles.modal_close}>
                 X
               </span>
-              <SelectType
+              <NewSelectType
                 options={options}
                 defaultValue="type"
                 onChange={typeChange}
@@ -89,15 +92,15 @@ function NewBlogModal({
                 className={styles.modal__title} 
                 type='text'
                 name="title"
-                placeholder="제목을 입력하세요"
+                placeholder="제목을 입력하세요"    
                 value={title}
                 onChange={titleChange}
               />
             </div>
-            <textarea
+            <TextareaAutosize
                 className={styles.modal__text}
                 name='content'
-                rows={30}
+                minRows={23}
                 cols={70}
                 placeholder='내용을 입력하세요'
                 value={content}
