@@ -12,19 +12,19 @@ import Box7 from "../Components/GradePage/Box7";
 import Box8 from "../Components/GradePage/Box8";
 import Box9 from "../Components/GradePage/Box9";
 import { Link } from "react-router-dom";
-import { ResponsiveLine } from '@nivo/line';
+import { ResponsiveLine } from "@nivo/line";
 
 const MyResponsiveLine = ({ data }) => (
   <ResponsiveLine
     data={data}
     margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-    xScale={{ type: 'point' }}
+    xScale={{ type: "point" }}
     yScale={{
-      type: 'linear',
-      min: 'auto',
-      max: 'auto',
+      type: "linear",
+      min: "auto",
+      max: "auto",
       stacked: true,
-      reverse: false
+      reverse: false,
     }}
     yFormat=" >-.2f"
     axisTop={null}
@@ -33,49 +33,49 @@ const MyResponsiveLine = ({ data }) => (
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: 'Your Grade',
+      legend: "Your Grade",
       legendOffset: 36,
-      legendPosition: 'middle'
+      legendPosition: "middle",
     }}
     axisLeft={{
       tickSize: 5,
       tickPadding: 5,
       tickRotation: 0,
-      legend: 'count',
+      legend: "count",
       legendOffset: -40,
-      legendPosition: 'middle'
+      legendPosition: "middle",
     }}
     pointSize={10}
-    pointColor={{ theme: 'background' }}
+    pointColor={{ theme: "background" }}
     pointBorderWidth={2}
-    pointBorderColor={{ from: 'serieColor' }}
+    pointBorderColor={{ from: "serieColor" }}
     pointLabelYOffset={-12}
     useMesh={true}
     legends={[
       {
-        anchor: 'bottom-right',
-        direction: 'column',
+        anchor: "bottom-right",
+        direction: "column",
         justify: false,
         translateX: 100,
         translateY: 0,
         itemsSpacing: 0,
-        itemDirection: 'left-to-right',
+        itemDirection: "left-to-right",
         itemWidth: 80,
         itemHeight: 20,
         itemOpacity: 0.75,
         symbolSize: 12,
-        symbolShape: 'circle',
-        symbolBorderColor: 'rgba(0, 0, 0, .5)',
+        symbolShape: "circle",
+        symbolBorderColor: "rgba(0, 0, 0, .5)",
         effects: [
           {
-            on: 'hover',
+            on: "hover",
             style: {
-              itemBackground: 'rgba(0, 0, 0, .03)',
-              itemOpacity: 1
-            }
-          }
-        ]
-      }
+              itemBackground: "rgba(0, 0, 0, .03)",
+              itemOpacity: 1,
+            },
+          },
+        ],
+      },
     ]}
   />
 );
@@ -83,11 +83,7 @@ const MyResponsiveLine = ({ data }) => (
 const TodoItem = ({ text, isChecked, onCheck }) => {
   return (
     <div>
-      <input
-        type="checkbox"
-        checked={isChecked}
-        onChange={onCheck}
-      />
+      <input type="checkbox" checked={isChecked} onChange={onCheck} />
       <span style={{ textDecoration: isChecked ? "line-through" : "none" }}>
         {text}
       </span>
@@ -122,43 +118,43 @@ const GradePage = () => {
 
   const data = [
     {
-      "id": "grade",
-      "color": "hsl(318, 70%, 50%)",
-      "data": [
+      id: "grade",
+      color: "hsl(318, 70%, 50%)",
+      data: [
         {
-          "x": "1학기",
-          "y": 4.5
+          x: "1학기",
+          y: 4.5,
         },
         {
-          "x": "2학기",
-          "y": 3.3
+          x: "2학기",
+          y: 3.3,
         },
         {
-          "x": "3학기",
-          "y": 3.6
+          x: "3학기",
+          y: 3.6,
         },
         {
-          "x": "4학기",
-          "y": 4.1
+          x: "4학기",
+          y: 4.1,
         },
         {
-          "x": "5학기",
-          "y": 3.0
+          x: "5학기",
+          y: 3.0,
         },
         {
-          "x": "6학기",
-          "y": 4.1
+          x: "6학기",
+          y: 4.1,
         },
         {
-          "x": "7학기",
-          "y": 3.8
+          x: "7학기",
+          y: 3.8,
         },
         {
-          "x": "8학기",
-          "y": 3.8
-        }
-      ]
-    }
+          x: "8학기",
+          y: 3.8,
+        },
+      ],
+    },
   ];
 
   useEffect(() => {
@@ -201,14 +197,13 @@ const GradePage = () => {
       setDiv9Visible(true);
     }
     setAddButtonClickCount(addButtonClickCount + 1);
-  
+
     // Scroll left
     contentBoxRef.current.scrollLeft -= 200;
-  
+
     // Scroll right
     contentBoxRef.current.scrollLeft += 200;
   };
-  
 
   const handleSubjectInputChange = (event) => {
     setSubjectInput(event.target.value);
@@ -244,18 +239,23 @@ const GradePage = () => {
   const calculateTotalCredits = () => {
     let totalCredits = 0;
 
-    if (isDiv2Visible) totalCredits += {calculateTotalCredits};
-    if (isDiv3Visible) totalCredits += {calculateTotalCredits};
-    if (isDiv4Visible) totalCredits += {calculateTotalCredits};
-    if (isDiv5Visible) totalCredits += parseInt(creditInput) * div5Contents.length;
-    if (isDiv6Visible) totalCredits += parseInt(creditInput) * div6Contents.length;
-    if (isDiv7Visible) totalCredits += parseInt(creditInput) * div7Contents.length;
-    if (isDiv8Visible) totalCredits += parseInt(creditInput) * div8Contents.length;
-    if (isDiv9Visible) totalCredits += parseInt(creditInput) * div9Contents.length;
+    if (isDiv2Visible) totalCredits += { calculateTotalCredits };
+    if (isDiv3Visible) totalCredits += { calculateTotalCredits };
+    if (isDiv4Visible) totalCredits += { calculateTotalCredits };
+    if (isDiv5Visible)
+      totalCredits += parseInt(creditInput) * div5Contents.length;
+    if (isDiv6Visible)
+      totalCredits += parseInt(creditInput) * div6Contents.length;
+    if (isDiv7Visible)
+      totalCredits += parseInt(creditInput) * div7Contents.length;
+    if (isDiv8Visible)
+      totalCredits += parseInt(creditInput) * div8Contents.length;
+    if (isDiv9Visible)
+      totalCredits += parseInt(creditInput) * div9Contents.length;
 
     return totalCredits;
   };
-  
+
   const swipeHandlers = useSwipeable({
     onSwipedUp: () => {
       if (div6Ref.current) {
@@ -278,7 +278,10 @@ const GradePage = () => {
 
   const handleAddTodo = () => {
     if (todoInput.trim() !== "") {
-      setTodos((prevTodos) => [...prevTodos, { text: todoInput, isChecked: false }]);
+      setTodos((prevTodos) => [
+        ...prevTodos,
+        { text: todoInput, isChecked: false },
+      ]);
       setTodoInput("");
     }
   };
@@ -299,10 +302,14 @@ const GradePage = () => {
         </Link>
       </div>
       <div className={styles.bottom}>
-        <IndexBar id={1}/>
+        <IndexBar id={1} />
         <div className={styles.contents}>
           <Profile />
-          <div className={styles.contentBox} {...swipeHandlers} ref={contentBoxRef}>
+          <div
+            className={styles.contentBox}
+            {...swipeHandlers}
+            ref={contentBoxRef}
+          >
             <div className={styles.contentTop}>
               <div className={styles.div1}>
                 <div className={styles.todoList}>
@@ -329,9 +336,15 @@ const GradePage = () => {
                 </div>
                 <div className={styles.div10}>
                   <h3>성적 그래프</h3>
-                  <div style={{ height: "370px",width: "100%", marginTop: "-50px" }}>
+                  <div
+                    style={{
+                      height: "370px",
+                      width: "100%",
+                      marginTop: "-50px",
+                    }}
+                  >
                     <MyResponsiveLine data={data} />
-                   </div>
+                  </div>
                 </div>
                 <div className={styles.div1Contents}>
                   <div className={styles.label}>
