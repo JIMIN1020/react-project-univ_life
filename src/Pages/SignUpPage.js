@@ -1,10 +1,10 @@
 import { useState } from "react";
 import Lottie from "lottie-react";
 import lottie from "../assets/lottie.json";
-import styles from "./LoginPage.module.css";
+import styles from "./SignUpPage.module.css";
 import { Link } from "react-router-dom";
 
-const LoginPage = () => {
+const SignUpPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -13,7 +13,7 @@ const LoginPage = () => {
       <div className={styles.bottom}>
         <div className={styles.profile}>
           <div className={styles.prof_top}>
-            <h2>Log In</h2>
+            <h2>Sign Up</h2>
             <div>
               <Lottie
                 animationData={lottie}
@@ -24,20 +24,32 @@ const LoginPage = () => {
           </div>
           <div className={styles.prof_bottom}>
             <div className={styles.inputBox}>
-              <span>ID</span>
+              <span>이름</span>
+              <input type="text" />
+            </div>
+            <div className={styles.inputBox}>
+              <span>학번(ID)</span>
               <input type="text" />
             </div>
             <div className={styles.inputBox}>
               <span>PW</span>
               <input type="password" />
             </div>
+
+            <div className={styles.inputBox}>
+              <span>학과</span>
+              <input type="text" />
+            </div>
+            <div className={styles.inputBox}>
+              <span>학교</span>
+              <input type="text" disabled value="숙명여자대학교" />
+            </div>
           </div>
           <div className={styles.buttonBox}>
-            <Link to="/signup" style={{ textDecoration: "none" }}>
-              <button style={{ marginRight: "5px" }}>가입하기</button>
+            <button style={{ marginRight: "5px" }}>가입하기</button>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+              <button style={{ marginLeft: "5px" }}>취소</button>
             </Link>
-
-            <button style={{ marginLeft: "5px" }}>로그인</button>
           </div>
         </div>
       </div>
@@ -45,4 +57,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignUpPage;

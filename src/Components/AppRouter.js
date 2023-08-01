@@ -5,6 +5,7 @@ import ActiviPage from "../Pages/ActiviPage";
 import GraduationPage from "../Pages/GraduationPage";
 import BlogPage from "../Pages/BlogPage";
 import LoginPage from "../Pages/LoginPage";
+import SignUpPage from "../Pages/SignUpPage";
 
 const AppRouter = () => {
   return (
@@ -16,6 +17,7 @@ const AppRouter = () => {
         <Route path="graduation" element={<GraduationPage />} />
         <Route path="blog" element={<BlogPage />} />
         <Route path="login" element={<LoginPage />} />
+        <Route path="signup" element={<SignUpPage />} />
       </Routes>
     </>
   );
