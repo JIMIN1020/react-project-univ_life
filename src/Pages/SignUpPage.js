@@ -24,18 +24,21 @@ const SignUpPage = () => {
           </div>
           <div className={styles.prof_bottom}>
             <div className={styles.inputBox}>
-              <span>이름</span>
-              <input type="text" />
-            </div>
-            <div className={styles.inputBox}>
-              <span>학번(ID)</span>
+              <span>ID(메일)</span>
               <input type="text" />
             </div>
             <div className={styles.inputBox}>
               <span>PW</span>
               <input type="password" />
             </div>
-
+            <div className={styles.inputBox}>
+              <span>이름</span>
+              <input type="text" />
+            </div>
+            <div className={styles.inputBox}>
+              <span>학번</span>
+              <input type="text" />
+            </div>
             <div className={styles.inputBox}>
               <span>학과</span>
               <input type="text" />
@@ -47,7 +50,7 @@ const SignUpPage = () => {
           </div>
           <div className={styles.buttonBox}>
             <button style={{ marginRight: "5px" }}>가입하기</button>
-            <Link to="/login" style={{ textDecoration: "none" }}>
+            <Link to="/" style={{ textDecoration: "none" }}>
               <button style={{ marginLeft: "5px" }}>취소</button>
             </Link>
           </div>

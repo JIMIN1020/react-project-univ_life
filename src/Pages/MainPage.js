@@ -8,15 +8,23 @@ import {
   BsFileText,
 } from "react-icons/bs";
 import LinkModal from "../Components/MainPage/LinkModal";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { authService } from "../fbase";
 
 const MainPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const onLogOutClick = () => {
+    authService.signOut();
+    navigate("/");
+  };
 
   return (
     <div className={styles.container}>
       <div className={styles.top}>
         <h1>대학 생활 기록 웹사이트</h1>
+        <button onClick={onLogOutClick}>로그아웃</button>
       </div>
       <div className={styles.bottom}>
         <div className={styles.menuContainer}>

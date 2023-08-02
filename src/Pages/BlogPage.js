@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styles from "./BlogPage.module.css";
-import Profile from "./Components/Profile";
-import IndexBar from "./Components/IndexBar";
-import Card from "./Components/BlogPage/Card";
-import BlogModal from "./Components/BlogPage/BlogModal";
-import NewBlogModal from "./Components/BlogPage/NewBlogModal";
+import Profile from "../Components/Profile";
+import IndexBar from "../Components/IndexBar";
+import Card from "../Components/BlogPage/Card";
+import BlogModal from "../Components/BlogPage/BlogModal";
+import NewBlogModal from "../Components/BlogPage/NewBlogModal";
 import { Link } from "react-router-dom";
 
 export const BlogPage = () => {
@@ -23,10 +23,9 @@ export const BlogPage = () => {
   const [newModalOpen, setNewModalOpen] = useState(false);
   const [blogSelected, setBlogSelected] = useState({});
 
-
   const blogClicked = (blog) => {
     console.log("this is blogpage hey: " + blogSelected.title + blogData);
-  }
+  };
 
   const showModal = (blog) => {
     setModalOpen(true);
