@@ -131,7 +131,7 @@ input:disabled {
 .buttonBox {
   height: 70px;
   display: flex;
-  margin-top: 12px;
+  margin-top: 10px;
   justify-content: center;
   align-items: center;
 }
