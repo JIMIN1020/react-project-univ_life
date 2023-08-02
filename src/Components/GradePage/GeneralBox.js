@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import styles from "./Box.module.css";
+import styles from "./GeneralBox.module.css";
 
-const Box4 = () => {
+const GeneralBox = ({ onGpaChange }) => {
   const [subjectInput, setSubjectInput] = useState("");
   const [creditInput, setCreditInput] = useState("1");
   const [gradeInput, setGradeInput] = useState("A+");
-  const [div4Contents, setDiv4Contents] = useState([]);
+  const [contents, setContents] = useState([]);
 
   const handleSubjectInputChange = (event) => {
     setSubjectInput(event.target.value);
@@ -17,34 +17,50 @@ const Box4 = () => {
 
   const handleGradeInputChange = (event) => {
     setGradeInput(event.target.value);
+    const newGpaValue = calculateGPA(); // Use the existing calculateGPA function
+    onGpaChange(newGpaValue); 
   };
+  
 
   const handleSubjectInputEnter = (event) => {
     if (event.key === "Enter" && subjectInput.trim() !== "") {
-      addSubjectToDiv4();
+      addSubject();
     }
   };
 
-  const addSubjectToDiv4 = () => {
+  const addSubject = () => {
     const newSubject = `${subjectInput} - ${gradeInput}(${creditInput}학점)`;
 
-    const isSubjectExists = div4Contents.some(
+    const isSubjectExists = contents.some(
       (subject) => subject.startsWith(`${subjectInput} - ${gradeInput}`)
     );
 
     if (!isSubjectExists) {
-      setDiv4Contents((prevContents) => prevContents.concat(newSubject));
+      setContents((prevContents) => prevContents.concat(newSubject));
     }
 
     setSubjectInput("");
     setCreditInput("1");
     setGradeInput("A+");
+
+    const newGpaValue = calculateGPA();
+    onGpaChange(newGpaValue);
+  };
+
+  const addSubject2 = () => {
+    const newSubject = `${subjectInput}`;
+    setSubjectInput("");
+    setCreditInput("1");
+    setGradeInput("A+");
+
+    const newGpaValue = calculateGPA();
+    onGpaChange(newGpaValue);
   };
 
   const calculateTotalCredits = () => {
     let totalCredits = 0;
 
-    div4Contents.forEach((subject) => {
+    contents.forEach((subject) => {
       const credit = parseInt(subject.match(/\((\d+)학점\)/)[1]);
       totalCredits += credit;
     });
@@ -56,12 +72,16 @@ const Box4 = () => {
     let totalGradePoints = 0;
     let totalCredits = 0;
 
-    div4Contents.forEach((subject) => {
-      const credit = parseInt(subject.match(/\((\d+)학점\)/)[1]);
-      const grade = convertGradeToValue(subject.match(/- ([A-F][+\-]?)/)[1]);
+    contents.forEach((subject) => {
+      const creditMatch = subject.match(/\((\d+)학점\)/);
+      const gradeMatch = subject.match(/- ([A-F][+\-]?)/);
 
-      totalGradePoints += credit * grade;
-      totalCredits += credit;
+      if (creditMatch && gradeMatch) {
+        const credit = parseInt(creditMatch[1]);
+        const grade = convertGradeToValue(gradeMatch[1]);
+        totalGradePoints += credit * grade;
+        totalCredits += credit;
+      }
     });
 
     if (totalCredits === 0) {
@@ -106,9 +126,9 @@ const Box4 = () => {
   };
 
   return (
-    <div className={styles.div4}>
-      <div className={styles.div4Contents}>
-        <div className={styles.div4Subject}>
+    <div className={styles.generalBox}>
+      <div className={styles.generalBoxContents}>
+        <div className={styles.generalBoxSubject}>
           <input
             type="text"
             value={subjectInput}
@@ -136,10 +156,11 @@ const Box4 = () => {
             <option value="D-">D-</option>
             <option value="F">F</option>
           </select>
-          <button onClick={addSubjectToDiv4}>추가</button>
+          <button onClick={addSubject}>추가</button>
+          <button onClick={addSubject2}>저장</button>
         </div>
-        {div4Contents.map((subject, index) => (
-          <div key={index} className={styles.div4Subject}>
+        {contents.map((subject, index) => (
+          <div key={index} className={styles.generalBoxSubject}>
             {subject}
           </div>
         ))}
@@ -150,4 +171,4 @@ const Box4 = () => {
   );
 };
 
-export default Box4;
+export default GeneralBox;

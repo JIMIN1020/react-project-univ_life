@@ -3,16 +3,9 @@ import styles from "./GradePage.module.css";
 import Profile from "../Components/Profile";
 import IndexBar from "../Components/IndexBar";
 import { useSwipeable } from "react-swipeable";
-import Box2 from "../Components/GradePage/Box2";
-import Box3 from "../Components/GradePage/Box3";
-import Box4 from "../Components/GradePage/Box4";
-import Box5 from "../Components/GradePage/Box5";
-import Box6 from "../Components/GradePage/Box6";
-import Box7 from "../Components/GradePage/Box7";
-import Box8 from "../Components/GradePage/Box8";
-import Box9 from "../Components/GradePage/Box9";
 import { Link } from "react-router-dom";
 import { ResponsiveLine } from "@nivo/line";
+import GeneralBox from "../Components/GradePage/GeneralBox";
 
 const MyResponsiveLine = ({ data }) => (
   <ResponsiveLine
@@ -92,6 +85,40 @@ const TodoItem = ({ text, isChecked, onCheck }) => {
 };
 
 const GradePage = () => {
+  const [gpaValue, setGpaValue] = useState(null);
+  const [gpaValue2, setGpaValue2] = useState(null);
+  const [gpaValue3, setGpaValue3] = useState(null);
+  const [gpaValue4, setGpaValue4] = useState(null);
+  const [gpaValue5, setGpaValue5] = useState(null);
+  const [gpaValue6, setGpaValue6] = useState(null);
+  const [gpaValue7, setGpaValue7] = useState(null);
+  const [gpaValue8, setGpaValue8] = useState(null);
+
+  const handleGpaChange = (gpaValue) => {
+    setGpaValue(gpaValue);
+  };
+  const handleGpaChange2 = (gpaValue2) => {
+    setGpaValue2(gpaValue2);
+  };
+  const handleGpaChange3 = (gpaValue3) => {
+    setGpaValue3(gpaValue3);
+  };
+  const handleGpaChange4 = (gpaValue4) => {
+    setGpaValue4(gpaValue4);
+  };
+  const handleGpaChange5 = (gpaValue5) => {
+    setGpaValue5(gpaValue5);
+  };
+  const handleGpaChange6 = (gpaValue6) => {
+    setGpaValue6(gpaValue6);
+  };
+  const handleGpaChange7 = (gpaValue7) => {
+    setGpaValue7(gpaValue7);
+  };
+  const handleGpaChange8 = (gpaValue8) => {
+    setGpaValue8(gpaValue8);
+  };
+
   const [isDiv2Visible, setDiv2Visible] = useState(false);
   const [isDiv3Visible, setDiv3Visible] = useState(false);
   const [isDiv4Visible, setDiv4Visible] = useState(false);
@@ -123,35 +150,35 @@ const GradePage = () => {
       data: [
         {
           x: "1학기",
-          y: 4.5,
+          y: gpaValue,
         },
         {
           x: "2학기",
-          y: 3.3,
+          y: gpaValue2,
         },
         {
           x: "3학기",
-          y: 3.6,
+          y: gpaValue3,
         },
         {
           x: "4학기",
-          y: 4.1,
+          y: gpaValue4,
         },
         {
           x: "5학기",
-          y: 3.0,
+          y: gpaValue5,
         },
         {
           x: "6학기",
-          y: 4.1,
+          y: gpaValue6,
         },
         {
           x: "7학기",
-          y: 3.8,
+          y: gpaValue7,
         },
         {
           x: "8학기",
-          y: 3.8,
+          y: gpaValue8,
         },
       ],
     },
@@ -242,14 +269,10 @@ const GradePage = () => {
     if (isDiv2Visible) totalCredits += { calculateTotalCredits };
     if (isDiv3Visible) totalCredits += { calculateTotalCredits };
     if (isDiv4Visible) totalCredits += { calculateTotalCredits };
-    if (isDiv5Visible)
-      totalCredits += parseInt(creditInput) * div5Contents.length;
-    if (isDiv6Visible)
-      totalCredits += parseInt(creditInput) * div6Contents.length;
-    if (isDiv7Visible)
-      totalCredits += parseInt(creditInput) * div7Contents.length;
-    if (isDiv8Visible)
-      totalCredits += parseInt(creditInput) * div8Contents.length;
+    if (isDiv5Visible) totalCredits += { calculateTotalCredits };
+    if (isDiv6Visible) totalCredits += { calculateTotalCredits };
+    if (isDiv7Visible) totalCredits += { calculateTotalCredits };
+    if (isDiv8Visible) totalCredits += { calculateTotalCredits };
     if (isDiv9Visible)
       totalCredits += parseInt(creditInput) * div9Contents.length;
 
@@ -343,22 +366,46 @@ const GradePage = () => {
                       marginTop: "-50px",
                     }}
                   >
-                    <MyResponsiveLine data={data} />
+                    <MyResponsiveLine data={data} 
+                    gpaValue={gpaValue} 
+                    gpaValue2={gpaValue2}
+                    gpaValue3={gpaValue3}
+                    gpaValue4={gpaValue4}
+                    gpaValue5={gpaValue5}
+                    gpaValue6={gpaValue6}
+                    gpaValue7={gpaValue7}
+                    gpaValue8={gpaValue8} />
+
                   </div>
                 </div>
                 <div className={styles.div1Contents}>
                   <div className={styles.label}>
-                    {"세부 성적 입력란(8학기까지 입력 가능합니다.)"}
-                    <button onClick={handleAddButtonClick}>추가하기</button>
+                    {"세부 성적 입력란(성적 입력이 끝나면 저장 버튼을 눌러주세요.)"}
                   </div>
-                  {isDiv2Visible && <Box2 />}
-                  {isDiv3Visible && <Box3 />}
-                  {isDiv4Visible && <Box4 />}
-                  {isDiv5Visible && <Box5 />}
-                  {isDiv6Visible && <Box6 />}
-                  {isDiv7Visible && <Box7 />}
-                  {isDiv8Visible && <Box8 />}
-                  {isDiv9Visible && <Box9 />}
+                  <div className={styles.div2}>
+                  {<GeneralBox onGpaChange={handleGpaChange} />}
+                  </div>
+                  <div className={styles.div3}>
+                  {<GeneralBox onGpaChange={handleGpaChange2}/>}
+                  </div>
+                  <div className={styles.div4}>
+                  {<GeneralBox onGpaChange={handleGpaChange3}/>}
+                  </div>
+                  <div className={styles.div5}>
+                  {<GeneralBox onGpaChange={handleGpaChange4}/>}
+                  </div>
+                  <div className={styles.div6}>
+                  {<GeneralBox onGpaChange={handleGpaChange5}/>}
+                  </div>
+                  <div className={styles.div7}>
+                  {<GeneralBox onGpaChange={handleGpaChange6}/>}
+                  </div>
+                  <div className={styles.div8}>
+                  {<GeneralBox onGpaChange={handleGpaChange7}/>}
+                  </div>
+                  <div className={styles.div9}>
+                  {<GeneralBox onGpaChange={handleGpaChange8}/>}
+                  </div>
                 </div>
               </div>
             </div>
