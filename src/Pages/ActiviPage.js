@@ -12,12 +12,12 @@ const ActiviPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [activiSelected, setActiviSelected] = useState({});
   
-  // 각 섹션(contentTop)에 대한 별도의 상태 변수들
+  // 각 섹션(contentTop)에 대한 별도의 상태 변수
   const [activi1, setActivi1] = useState([]);
   const [activi2, setActivi2] = useState([]);
   const [activi3, setActivi3] = useState([]);
 
-  // 각 섹션(contentTop)에 대한 별도의 handleClick 함수들
+  // 각 섹션(contentTop)에 대한 별도의 handleClick 함수
   const handleClick1 = () => {
     const newActivi = {
       id: Date.now(),
@@ -45,6 +45,7 @@ const ActiviPage = () => {
     setActiviSelected({ type: "프로젝트" });
   };
 
+  // modal 관련 handleClick
   const handleClick = (section, id) => {
     setModalOpen(true);
     setActiviSelected({ type: section, id: id });
@@ -138,21 +139,7 @@ const ActiviPage = () => {
                     <p className={styles.cText}>{item.title}</p>
                   </SwiperSlide>
                 ))}
-              </Swiper>
-              {modalOpen && (
-        <ActiviModal
-          setModalOpen={setModalOpen}
-          onSave={handleSaveActiviContent}
-          savedActiviContent={
-            activiSelected.type === "동아리 & 학회"
-              ? activi1.find((item) => item.id === activiSelected.id)
-              : activiSelected.type === "대외활동"
-              ? activi2.find((item) => item.id === activiSelected.id)
-              : activi3.find((item) => item.id === activiSelected.id)
-          }
-        />
-      )}
-              
+              </Swiper> 
             </div>
             <div className={styles.divider}></div>
             <div className={styles.contentTop}>
@@ -190,10 +177,24 @@ const ActiviPage = () => {
                   >
                     <p className={styles.dText}>{item.date}</p>
                     <p className={styles.cText}>{item.title}</p>
-                    <p className={styles.cText}>{item.detail}</p>
                   </SwiperSlide>
                 ))}
               </Swiper>
+
+              {modalOpen && (
+                <ActiviModal
+                setModalOpen={setModalOpen}
+                onSave={handleSaveActiviContent}
+                savedActiviContent={
+                  activiSelected.type === "동아리 & 학회"
+                    ? activi1.find((item) => item.id === activiSelected.id)
+                    : activiSelected.type === "대외활동"
+                    ? activi2.find((item) => item.id === activiSelected.id)
+                    : activi3.find((item) => item.id === activiSelected.id)
+                }
+              />
+               )}
+ 
             </div>
           </div>
         </div>
