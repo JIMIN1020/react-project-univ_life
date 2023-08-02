@@ -1,7 +1,7 @@
 .prof_bottom span {
-  color: white;
-  font-size: 15px;
-  font-weight: 600;
+  color: rgb(237, 237, 237);
+  font-size: 14px;
+  font-weight: 550;
 }
 
 input {
@@ -10,8 +10,11 @@ input {
   color: black;
   font-size: 12px;
   margin-left: 10px;
-  width: 150px;
-  margin-right: 50px;
+  width: 170px;
+  height: 25px;
+  background-color: rgb(237, 237, 237);
+  margin-right: 60px;
+  border: 1px solid rgb(147, 147, 147);
 }
 
 input:focus {
@@ -48,8 +51,8 @@ input:disabled {
 
 .profile {
   background-color: rgba(0, 47, 135, 0.948);
-  width: 300px;
-  height: 430px;
+  width: 330px;
+  height: 500px;
   margin: auto;
   border-radius: 30px;
   box-shadow: 0 5px 8px rgba(0, 0, 0, 0.16), 0 5px 8px rgba(0, 0, 0, 0.23);
@@ -61,57 +64,28 @@ input:disabled {
 .lottie {
   height: 150px;
   margin: auto;
-  margin-right: 10px;
   margin-top: 10px;
-}
-
-.leftside {
-  width: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.rightside {
-  width: 200px;
-  display: flex;
-  align-items: center;
-}
-
-.imageBox {
-  border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  overflow: hidden;
-}
-
-.detail {
-  display: flex;
-  flex-direction: column;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 35px;
-  margin-left: 15px;
 }
 
 .prof_bottom {
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
-  height: 170px;
+  margin-top: 5px;
+  height: 270px;
   padding-top: 5px;
+  justify-content: center;
 }
 
 .prof_top {
   height: 140px;
-  width: 300px;
+  width: 330px;
   padding-top: 5px;
 }
 
 .prof_top h2 {
   font-size: 20px;
   text-align: center;
-  color: white;
+  color: rgb(237, 237, 237);
   width: 100px;
   margin: auto;
   margin-top: 10px;
@@ -123,9 +97,10 @@ input:disabled {
 }
 
 .inputBox {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
 .buttonBox {
@@ -133,12 +108,11 @@ input:disabled {
   display: flex;
   margin-top: 10px;
   justify-content: center;
-  align-items: center;
 }
 
 .buttonBox button {
   border: none;
-  background-color: white;
+  background-color: rgb(237, 237, 237);
   border-radius: 15px;
   width: 70px;
   height: 30px;

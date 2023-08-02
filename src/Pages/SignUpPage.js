@@ -37,6 +37,7 @@ const SignUpPage = () => {
       const data = await createUserWithEmailAndPassword(authService, mail, pw);
     } catch (error) {
       alert("비밀번호는 6자리 이상이어야 합니다.");
+      return;
     }
 
     // 홈으로 이동
@@ -71,12 +72,13 @@ const SignUpPage = () => {
           <form onSubmit={onSubmit}>
             <div className={styles.prof_bottom}>
               <div className={styles.inputBox}>
-                <span>ID(메일)</span>
+                <span>ID</span>
                 <input
                   name="mail"
                   type="email"
                   value={mail}
                   onChange={onChange}
+                  placeholder="ID(이메일) 입력"
                 />
               </div>
               <div className={styles.inputBox}>
@@ -86,6 +88,7 @@ const SignUpPage = () => {
                   type="password"
                   value={pw}
                   onChange={onChange}
+                  placeholder="비밀번호 입력 (6자리 이상)"
                 />
               </div>
               <div className={styles.inputBox}>
@@ -95,6 +98,7 @@ const SignUpPage = () => {
                   type="text"
                   value={name}
                   onChange={onChange}
+                  placeholder="이름 입력"
                 />
               </div>
               <div className={styles.inputBox}>
@@ -104,6 +108,7 @@ const SignUpPage = () => {
                   type="text"
                   value={studentId}
                   onChange={onChange}
+                  placeholder="학번 입력"
                 />
               </div>
               <div className={styles.inputBox}>
@@ -113,6 +118,7 @@ const SignUpPage = () => {
                   type="text"
                   value={major}
                   onChange={onChange}
+                  placeholder="학과(전공) 입력"
                 />
               </div>
               <div className={styles.inputBox}>

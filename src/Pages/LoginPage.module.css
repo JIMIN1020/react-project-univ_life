@@ -1,6 +1,6 @@
 .prof_bottom span {
-  color: white;
-  font-size: 15px;
+  color: rgb(237, 237, 237);
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -8,10 +8,12 @@
   border: none;
   border-radius: 7px;
   color: black;
-  font-size: 14px;
+  font-size: 13px;
   margin-left: 10px;
   width: 150px;
   height: 25px;
+  margin-right: 50px;
+  border: 1px solid rgb(147, 147, 147);
 }
 
 .prof_bottom input:focus {
@@ -58,40 +60,17 @@
   flex-direction: column;
 }
 
+form {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
 .lottie {
   height: 150px;
   margin: auto;
   margin-right: 10px;
   margin-top: 10px;
-}
-
-.leftside {
-  width: 200px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.rightside {
-  width: 200px;
-  display: flex;
-  align-items: center;
-}
-
-.imageBox {
-  border-radius: 50%;
-  width: 150px;
-  height: 150px;
-  overflow: hidden;
-}
-
-.detail {
-  display: flex;
-  flex-direction: column;
-  font-size: 15px;
-  font-weight: 500;
-  line-height: 35px;
-  margin-left: 15px;
 }
 
 .prof_bottom {
@@ -109,7 +88,7 @@
 .prof_top h2 {
   font-size: 20px;
   text-align: center;
-  color: white;
+  color: rgb(237, 237, 237);
   width: 70px;
   margin: auto;
   margin-top: 10px;
@@ -133,7 +112,7 @@
 
 .buttonBox button {
   border: none;
-  background-color: white;
+  background-color: rgb(237, 237, 237);
   border-radius: 15px;
   width: 70px;
   height: 30px;
@@ -154,4 +133,33 @@
   font-weight: 550;
   color: tomato;
   margin: auto;
+  animation-name: horizontal-shaking;
+  animation-duration: 1s;
+}
+
+@keyframes horizontal-shaking {
+  0% {
+    transform: translateX(0);
+  }
+  10% {
+    transform: translateX(1px);
+  }
+  25% {
+    transform: translateX(-1px);
+  }
+  40% {
+    transform: translateX(1px);
+  }
+  55% {
+    transform: translateX(1px);
+  }
+  70% {
+    transform: translateX(-1px);
+  }
+  85% {
+    transform: translateX(1px);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

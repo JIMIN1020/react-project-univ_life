@@ -28,7 +28,6 @@ const LoginPage = () => {
     try {
       const data = await signInWithEmailAndPassword(authService, id, pw);
     } catch (error) {
-      console.log(JSON.stringify(error));
       setError(error);
     }
   };
@@ -36,6 +35,7 @@ const LoginPage = () => {
   /* ------------ 에러 처리 ------------ */
   const printError = () => {
     const { code } = error;
+    console.log(code);
 
     if (code === "auth/invalid-email")
       return (
@@ -45,6 +45,8 @@ const LoginPage = () => {
       return (
         <p className={styles.errorMsg}>사용자 정보가 존재하지 않습니다.</p>
       );
+    else if (code === "auth/wrong-password")
+      return <p className={styles.errorMsg}>비밀번호가 틀렸습니다.</p>;
   };
   return (
     <div className={styles.container}>
@@ -67,7 +69,13 @@ const LoginPage = () => {
             <div className={styles.prof_bottom}>
               <div className={styles.inputBox}>
                 <span>ID</span>
-                <input name="id" type="email" value={id} onChange={onChange} />
+                <input
+                  name="id"
+                  type="email"
+                  value={id}
+                  onChange={onChange}
+                  placeholder="ID(이메일) 입력"
+                />
               </div>
               <div className={styles.inputBox}>
                 <span>PW</span>
@@ -76,15 +84,16 @@ const LoginPage = () => {
                   type="password"
                   value={pw}
                   onChange={onChange}
+                  placeholder="비밀번호 입력"
                 />
               </div>
               {printError()}
             </div>
             <div className={styles.buttonBox}>
+              <button style={{ marginRight: "5px" }}>로그인</button>
               <Link to="/signup" style={{ textDecoration: "none" }}>
-                <button style={{ marginRight: "5px" }}>가입하기</button>
+                <button style={{ marginLeft: "5px" }}>가입하기</button>
               </Link>
-              <button style={{ marginLeft: "5px" }}>로그인</button>
             </div>
           </form>
         </div>
