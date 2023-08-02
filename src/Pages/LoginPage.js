@@ -33,6 +33,7 @@ const LoginPage = () => {
     }
   };
 
+  /* ------------ 에러 처리 ------------ */
   const printError = () => {
     const { code } = error;
 

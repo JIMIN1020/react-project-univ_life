@@ -7,13 +7,13 @@ import BlogPage from "../Pages/BlogPage";
 import LoginPage from "../Pages/LoginPage";
 import SignUpPage from "../Pages/SignUpPage";
 
-const AppRouter = ({ isLoggedIn }) => {
+const AppRouter = ({ isLoggedIn, userObj }) => {
   return (
     <>
       <Routes>
         {isLoggedIn ? (
           <>
-            <Route path="/" element={<MainPage />} />
+            <Route path="/" element={<MainPage userObj={userObj} />} />
             <Route path="grade" element={<GradePage />} />
             <Route path="activity" element={<ActiviPage />} />
             <Route path="graduation" element={<GraduationPage />} />
@@ -22,7 +22,7 @@ const AppRouter = ({ isLoggedIn }) => {
         ) : (
           <>
             <Route path="/" element={<LoginPage />} />
-            <Route path="signup" element={<SignUpPage />} />
+            <Route path="signup" element={<SignUpPage userObj={userObj} />} />
           </>
         )}
       </Routes>

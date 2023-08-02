@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./MainPage.module.css";
 import {
   BsFileEarmarkBarGraph,
@@ -9,16 +9,33 @@ import {
 } from "react-icons/bs";
 import LinkModal from "../Components/MainPage/LinkModal";
 import { Link, useNavigate } from "react-router-dom";
-import { authService } from "../fbase";
+import { authService, dbService } from "../fbase";
+import { collection, getDocs, query, where } from "firebase/firestore";
 
-const MainPage = () => {
+const MainPage = ({ userObj }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [profile, setProfile] = useState({});
   const navigate = useNavigate();
 
   const onLogOutClick = () => {
     authService.signOut();
     navigate("/");
   };
+
+  /* ------------ 유저 정보 가져오기 ------------ */
+  const getUserInfo = async () => {
+    const q = query(
+      collection(dbService, "users"),
+      where("userID", "==", userObj.uid)
+    );
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => setProfile(doc.data()));
+  };
+
+  useEffect(() => {
+    getUserInfo();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -83,10 +100,10 @@ const MainPage = () => {
             </div>
             <div className={styles.rightside}>
               <div className={styles.detail}>
-                <span>이름 : 눈송이</span>
-                <span>학번 : 200000</span>
+                <span>이름 : {profile.name}</span>
+                <span>학번 : {profile.studentId}</span>
                 <span>학교 : 숙명여자대학교</span>
-                <span>학과 : IT공학과</span>
+                <span>학과 : {profile.major}</span>
               </div>
             </div>
           </div>
