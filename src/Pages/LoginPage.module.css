@@ -148,3 +148,10 @@
 .buttonBox button:hover {
   transform: scale(1.05);
 }
+
+.errorMsg {
+  font-size: 13px;
+  font-weight: 550;
+  color: tomato;
+  margin: auto;
+}
