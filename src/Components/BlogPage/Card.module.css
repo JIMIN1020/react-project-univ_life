@@ -17,6 +17,7 @@
 .main {
     display: flex;
     flex-direction: row;
+    width: 450px;
 }
 
 .title {
@@ -24,6 +25,11 @@
     font-weight: 700;
     display: flex;
     flex-direction: row;
+    width: 350px;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .category_btn {
