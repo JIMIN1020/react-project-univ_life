@@ -31,7 +31,10 @@
 
 .input {
   border: none;
+  width: 190px;
+  background: none;
   margin-left: 10px;
+  margin-right: 0px;
 }
 
 .input:focus {
