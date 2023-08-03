@@ -1,14 +1,21 @@
 import React, { useState } from "react";
 import styles from "./EditModal.module.css";
 import { BsCheck2, BsRecordFill, BsPlusCircle, BsXLg } from "react-icons/bs";
+import { doc, updateDoc } from "firebase/firestore";
+import { authService, dbService } from "../../fbase";
 
 const EditModal = ({ plan, setEditModal }) => {
   const [tempPlan, setTempPlan] = useState(plan.plans); // 임시 plan
   const [newPlan, setNewPlan] = useState(false); // 계획 추가용
 
   /* --------------- 최종 plan 처리 --------------- */
-  const updatePlan = () => {
-    plan.plans = tempPlan;
+  const updatePlan = async () => {
+    const docRef = doc(
+      dbService,
+      `graduationPage/${authService.currentUser.uid}/plan`,
+      plan.id
+    );
+    await updateDoc(docRef, { plans: tempPlan });
     setEditModal(false);
   };
 

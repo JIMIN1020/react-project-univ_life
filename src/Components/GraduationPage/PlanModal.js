@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styles from "./PlanModal.module.css";
 import { BsCheck2, BsRecordFill, BsPlusCircle, BsXLg } from "react-icons/bs";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { authService, dbService } from "../../fbase";
 
 const PlanModal = ({
   setModalOpen,
@@ -8,26 +10,31 @@ const PlanModal = ({
   setCurrentYear,
   currentTerm,
   setCurrentTerm,
-  plan,
-  setPlan,
 }) => {
   const [tempPlan, setTempPlan] = useState([]); // 임시 plan
   const [newPlan, setNewPlan] = useState(false); // 계획 추가용
 
   /* --------------- 최종 plan 처리 --------------- */
-  const addPlan = () => {
-    const newPlan = {
-      id: Date.now(),
+  const addPlan = async () => {
+    // 파이어베이스에 추가
+    const docRef = doc(
+      collection(
+        dbService,
+        "graduationPage",
+        authService.currentUser.uid,
+        "plan"
+      )
+    );
+    await setDoc(docRef, {
+      createdAt: Date.now(),
       title: `${currentYear}학년도 ${currentTerm + 1}학기`,
       removable: true,
       plans: tempPlan,
-    };
-    // 이전 마지막 요소 삭제 불가능하게 조정
-    const prevLast = plan[plan.length - 1];
-    prevLast.removable = false;
+    });
 
-    // 업데이트
-    setPlan((prev) => [...prev, newPlan]);
+    // 이전 마지막 요소 삭제 불가능하게 조정
+    // const prevLast = plan[plan.length - 1];
+    // prevLast.removable = false;
 
     // setting
     setCurrentTerm((prev) => !prev);
