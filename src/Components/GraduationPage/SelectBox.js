@@ -1,13 +1,33 @@
 import React from "react";
 import { BsCheck2 } from "react-icons/bs";
 import styles from "./SelectBox.module.css";
+import { doc, updateDoc } from "firebase/firestore";
+import { authService, dbService } from "../../fbase";
 
-const SelectBox = ({ title, year, setYear, month, setMonth, reset }) => {
-  const handleChange = (e) => {
-    setYear(parseInt(e.target.value));
+const SelectBox = ({ title, yearObj, reset }) => {
+  const handleChange = async (e) => {
+    // 문서 가져오기
+    const docRef = doc(
+      dbService,
+      `graduationPage/${authService.currentUser.uid}/years`,
+      "0"
+    );
+
+    if (title === "입학년도") {
+      await updateDoc(docRef, { enterYear: parseInt(e.target.value) });
+    } else if (title === "졸업년도") {
+      await updateDoc(docRef, { graduationYear: parseInt(e.target.value) });
+    }
   };
-  const handleChangeMonth = (e) => {
-    setMonth(parseInt(e.target.value));
+  const handleChangeMonth = async (e) => {
+    // 문서 가져오기
+    const docRef = doc(
+      dbService,
+      `graduationPage/${authService.currentUser.uid}/years`,
+      "0"
+    );
+
+    await updateDoc(docRef, { graduationMonth: parseInt(e.target.value) });
   };
   let options;
 
@@ -23,31 +43,44 @@ const SelectBox = ({ title, year, setYear, month, setMonth, reset }) => {
   }
   return (
     <>
-      <select
-        className={styles.selectBox}
-        onChange={handleChange}
-        key={year}
-        defaultValue={year}
-      >
-        {options.map((option) => {
-          return <option value={option.value}>{option.name}</option>;
-        })}
-      </select>
       {title === "졸업년도" ? (
+        <>
+          <select
+            className={styles.selectBox}
+            onChange={handleChange}
+            key={yearObj.graduationYear}
+            defaultValue={yearObj.graduationYear}
+          >
+            {options.map((option) => {
+              return <option value={option.value}>{option.name}</option>;
+            })}
+          </select>
+          <select
+            className={styles.selectBox2}
+            onChange={handleChangeMonth}
+            key={yearObj.graduationMonth}
+            defaultValue={yearObj.graduationMonth}
+          >
+            <option value={2} defaultValue={yearObj.graduationMonth === 2}>
+              2월
+            </option>
+            <option value={8} defaultValue={yearObj.graduationMonth === 8}>
+              8월
+            </option>
+          </select>
+        </>
+      ) : (
         <select
-          className={styles.selectBox2}
-          onChange={handleChangeMonth}
-          key={month}
-          defaultValue={month}
+          className={styles.selectBox}
+          onChange={handleChange}
+          key={yearObj.enterYear}
+          defaultValue={yearObj.enterYear}
         >
-          <option value={2} defaultValue={month === 2}>
-            2월
-          </option>
-          <option value={8} defaultValue={month === 8}>
-            8월
-          </option>
+          {options.map((option) => {
+            return <option value={option.value}>{option.name}</option>;
+          })}
         </select>
-      ) : undefined}
+      )}
       <button className={styles.okBtn} onClick={() => reset(false)}>
         <BsCheck2 className={styles.icon} />
       </button>
