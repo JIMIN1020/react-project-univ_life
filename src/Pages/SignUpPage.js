@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { authService, dbService } from "../fbase";
 import { addDoc, collection, setDoc, doc } from "firebase/firestore";
+import uuid from "react-uuid";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -50,6 +51,7 @@ const SignUpPage = () => {
       major,
     });
 
+    // year 초기 세팅
     await setDoc(
       doc(
         dbService,
@@ -57,9 +59,67 @@ const SignUpPage = () => {
         "0"
       ),
       {
-        enteryear: 2016,
+        enterYear: 2016,
         graduationYear: 2020,
         graduationMonth: 2,
+      }
+    );
+
+    // 계획 초기 세팅
+    await setDoc(
+      doc(
+        collection(
+          dbService,
+          `graduationPage/${authService.currentUser.uid}/plan`
+        )
+      ),
+      {
+        createdAt: Date.now(),
+        title: `2016학년도 1학기`,
+        removable: false,
+        plans: [],
+      }
+    );
+    await setDoc(
+      doc(
+        collection(
+          dbService,
+          `graduationPage/${authService.currentUser.uid}/plan`
+        )
+      ),
+      {
+        createdAt: Date.now(),
+        title: `2016학년도 2학기`,
+        removable: false,
+        plans: [],
+      }
+    );
+    await setDoc(
+      doc(
+        collection(
+          dbService,
+          `graduationPage/${authService.currentUser.uid}/plan`
+        )
+      ),
+      {
+        createdAt: Date.now(),
+        title: `2017학년도 1학기`,
+        removable: false,
+        plans: [],
+      }
+    );
+    await setDoc(
+      doc(
+        collection(
+          dbService,
+          `graduationPage/${authService.currentUser.uid}/plan`
+        )
+      ),
+      {
+        createdAt: Date.now(),
+        title: `2017학년도 2학기`,
+        removable: false,
+        plans: [],
       }
     );
   };

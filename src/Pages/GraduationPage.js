@@ -28,20 +28,7 @@ import { authService, dbService } from "../fbase";
 const GraduationPage = () => {
   const [todo, setTodo] = useState([]); // todo 데이터
   // 계획 데이터
-  const [plan, setPlan] = useState([
-    {
-      id: 1,
-      title: `2016학년도 1학기`,
-      removable: false,
-      plans: [
-        { id: 11, text: "토익 900점 이상" },
-        { id: 12, text: "컴활 자격증" },
-      ],
-    },
-    { id: 2, title: `2016학년도 2학기`, removable: false, plans: [] },
-    { id: 3, title: `2017학년도 1학기`, removable: false, plans: [] },
-    { id: 4, title: `2017학년도 2학기`, removable: false, plans: [] },
-  ]);
+  const [plan, setPlan] = useState([]);
 
   const [addTodo, setAddTodo] = useState(false); // todo 추가 처리를 위한 state
   const [editYearE, setEditE] = useState(false); // 입학년도 수정을 위한 state
@@ -59,6 +46,7 @@ const GraduationPage = () => {
     setTop(0);
     getTodo();
     getYears();
+    getPlan();
   }, []);
 
   useEffect(() => {
@@ -80,6 +68,24 @@ const GraduationPage = () => {
         ...doc.data(),
       }));
       setTodo(todos);
+    });
+  };
+
+  /* --------------- plan 데이터 가져오기 --------------- */
+  const getPlan = async () => {
+    const q = query(
+      collection(
+        dbService,
+        `graduationPage/${authService.currentUser.uid}/plan`
+      ),
+      orderBy("createdAt", "asc")
+    );
+    onSnapshot(q, (snapshot) => {
+      const plans = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setPlan(plans);
     });
   };
 
@@ -142,13 +148,37 @@ const GraduationPage = () => {
 
   /* --------------- 입학년도 변경 시 --------------- */
   const changeEnterYear = () => {
-    let n = 0;
-    plan.map((plan) => {
-      plan.title = `${year.enterYear + parseInt(n / 2)}학년도 ${
-        (n % 2) + 1
-      }학기`;
-      n++;
+    let n = -1;
+
+    // 파이어베이스 상에서 수정
+    const q = query(
+      collection(
+        dbService,
+        `graduationPage/${authService.currentUser.uid}/plan`
+      ),
+      orderBy("createdAt", "asc")
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const plans = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      plans.forEach(async (plan) => {
+        const docRef = doc(
+          dbService,
+          `graduationPage/${authService.currentUser.uid}/plan`,
+          plan.id
+        );
+        n++;
+        await updateDoc(docRef, {
+          title: `${year.enterYear + parseInt(n / 2)}학년도 ${(n % 2) + 1}학기`,
+        });
+      });
+      setPlan(plans);
+      unsubscribe();
     });
+
+    // 세팅
     setCurrentYear(year.enterYear + 2);
     setCurrentTerm(false);
   };
