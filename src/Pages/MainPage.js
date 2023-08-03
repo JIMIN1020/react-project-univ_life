@@ -10,7 +10,7 @@ import {
 import LinkModal from "../Components/MainPage/LinkModal";
 import { Link, useNavigate } from "react-router-dom";
 import { authService, dbService } from "../fbase";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDoc, query, doc } from "firebase/firestore";
 
 const MainPage = ({ userObj }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -24,13 +24,9 @@ const MainPage = ({ userObj }) => {
 
   /* ------------ 유저 정보 가져오기 ------------ */
   const getUserInfo = async () => {
-    const q = query(
-      collection(dbService, "users"),
-      where("userID", "==", userObj.uid)
-    );
-    const querySnapshot = await getDocs(q);
-
-    querySnapshot.forEach((doc) => setProfile(doc.data()));
+    const docRef = doc(dbService, "users", authService.currentUser.uid);
+    const docData = await getDoc(docRef);
+    setProfile(docData.data());
   };
 
   useEffect(() => {

@@ -46,13 +46,11 @@ const GraduationPage = () => {
   const [addTodo, setAddTodo] = useState(false); // todo 추가 처리를 위한 state
   const [editYearE, setEditE] = useState(false); // 입학년도 수정을 위한 state
   const [editYearG, setEditG] = useState(false); // 졸업년도 수정을 위한 state
-  const [enter, setEnter] = useState(2016); // 입학년도
-  const [graduate, setGraduate] = useState(2022); // 졸업년도
-  const [graduateM, setGraduateM] = useState(2); // 졸업 월
+  const [year, setYear] = useState({}); // 연도 관리 state
   const [modalOpen, setModalOpen] = useState(false); // 모달창 오픈 관리
   const [editPlan, setEditPlan] = useState({}); // 수정할 계획
   const [editModal, setEditModal] = useState(false); // 수정 모달 오픈 관리
-  const [currentYear, setCurrentYear] = useState(enter + 2); // 현재 입력된 계획년도 저장용
+  const [currentYear, setCurrentYear] = useState(year.enterYear + 2); // 현재 입력된 계획년도 저장용
   const [currentTerm, setCurrentTerm] = useState(false); // 현재 입력된 계획 학기 저장용
   let [top, setTop] = useState(0); // 계획 렌더링용 state
 
@@ -60,11 +58,12 @@ const GraduationPage = () => {
   useEffect(() => {
     setTop(0);
     getTodo();
+    getYears();
   }, []);
 
   useEffect(() => {
     changeEnterYear();
-  }, [enter]);
+  }, [year.enterYear]);
 
   /* --------------- todo 데이터 가져오기 --------------- */
   const getTodo = async () => {
@@ -81,6 +80,22 @@ const GraduationPage = () => {
         ...doc.data(),
       }));
       setTodo(todos);
+    });
+  };
+
+  /* --------------- 연도 데이터 가져오기 --------------- */
+  const getYears = async () => {
+    const q = query(
+      collection(
+        dbService,
+        `graduationPage/${authService.currentUser.uid}/years`
+      )
+    );
+    onSnapshot(q, (snapshot) => {
+      const year = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+      }));
+      setYear(year[0]);
     });
   };
 
@@ -129,10 +144,12 @@ const GraduationPage = () => {
   const changeEnterYear = () => {
     let n = 0;
     plan.map((plan) => {
-      plan.title = `${enter + parseInt(n / 2)}학년도 ${(n % 2) + 1}학기`;
+      plan.title = `${year.enterYear + parseInt(n / 2)}학년도 ${
+        (n % 2) + 1
+      }학기`;
       n++;
     });
-    setCurrentYear(enter + 2);
+    setCurrentYear(year.enterYear + 2);
     setCurrentTerm(false);
   };
 
@@ -156,13 +173,12 @@ const GraduationPage = () => {
                     {editYearE ? (
                       <SelectBox
                         title="입학년도"
-                        year={enter}
-                        setYear={setEnter}
+                        yearObj={year}
                         reset={setEditE}
                       />
                     ) : (
                       <>
-                        <span className={styles.date}>{enter}년</span>
+                        <span className={styles.date}>{year.enterYear}년</span>
                         <button
                           className={styles.editBtn}
                           onClick={() => setEditE(true)}
@@ -179,16 +195,13 @@ const GraduationPage = () => {
                     {editYearG ? (
                       <SelectBox
                         title="졸업년도"
-                        year={graduate}
-                        setYear={setGraduate}
-                        month={graduateM}
-                        setMonth={setGraduateM}
+                        yearObj={year}
                         reset={setEditG}
                       />
                     ) : (
                       <>
                         <span className={styles.date}>
-                          {graduate}년 {graduateM}월
+                          {year.graduationYear}년 {year.graduationMonth}월
                         </span>
                         <button
                           className={styles.editBtn}

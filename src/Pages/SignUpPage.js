@@ -5,7 +5,7 @@ import styles from "./SignUpPage.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { authService, dbService } from "../fbase";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, setDoc, doc } from "firebase/firestore";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -44,12 +44,24 @@ const SignUpPage = () => {
     navigate("/");
 
     // 가입한 유저 정보 저장
-    const docRef = await addDoc(collection(dbService, "users"), {
+    await setDoc(doc(dbService, "users", authService.currentUser.uid), {
       name,
       studentId,
       major,
-      userID: authService.currentUser.uid,
     });
+
+    await setDoc(
+      doc(
+        dbService,
+        `graduationPage/${authService.currentUser.uid}/years`,
+        "0"
+      ),
+      {
+        enteryear: 2016,
+        graduationYear: 2020,
+        graduationMonth: 2,
+      }
+    );
   };
 
   return (
