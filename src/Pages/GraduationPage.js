@@ -13,17 +13,20 @@ import "swiper/css";
 import PlanModal from "../Components/GraduationPage/PlanModal";
 import EditModal from "../Components/GraduationPage/EditModal";
 import { Link } from "react-router-dom";
+import {
+  collection,
+  query,
+  onSnapshot,
+  orderBy,
+  updateDoc,
+  doc,
+  getDoc,
+  deleteDoc,
+} from "firebase/firestore";
+import { authService, dbService } from "../fbase";
 
 const GraduationPage = () => {
-  // todo 데이터 (임시 데이터 2개)
-  const [todo, setTodo] = useState([
-    { id: Date.now(), value: "토익 900점 이상", completed: false },
-    {
-      id: Date.now() + 1,
-      value: "졸업 프로젝트",
-      completed: false,
-    },
-  ]);
+  const [todo, setTodo] = useState([]); // todo 데이터
   // 계획 데이터
   const [plan, setPlan] = useState([
     {
@@ -56,28 +59,51 @@ const GraduationPage = () => {
   /* --------------- useEffect --------------- */
   useEffect(() => {
     setTop(0);
+    getTodo();
   }, []);
 
   useEffect(() => {
     changeEnterYear();
   }, [enter]);
 
-  /* --------------- todo 완료 처리 --------------- */
-  const completeTodo = (id) => {
-    let newTodo = todo.map((todo) => {
-      if (todo.id === id) {
-        todo.completed = !todo.completed;
-      }
-      return todo;
+  /* --------------- todo 데이터 가져오기 --------------- */
+  const getTodo = async () => {
+    const q = query(
+      collection(
+        dbService,
+        `graduationPage/${authService.currentUser.uid}/todo`
+      ),
+      orderBy("createdAt", "asc")
+    );
+    onSnapshot(q, (snapshot) => {
+      const todos = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setTodo(todos);
     });
+  };
 
-    setTodo(newTodo);
+  /* --------------- todo 완료 처리 --------------- */
+  const completeTodo = async (docId) => {
+    const docRef = doc(
+      dbService,
+      `graduationPage/${authService.currentUser.uid}/todo`,
+      docId
+    );
+    const docSnapShot = await getDoc(docRef);
+    const currentValue = docSnapShot.data().completed;
+    await updateDoc(docRef, { completed: !currentValue });
   };
 
   /* --------------- todo 삭제 처리 --------------- */
-  const deleteTodo = (id) => {
-    let newTodo = todo.filter((todo) => todo.id !== id);
-    setTodo(newTodo);
+  const deleteTodo = async (docId) => {
+    const docRef = doc(
+      dbService,
+      `graduationPage/${authService.currentUser.uid}/todo`,
+      docId
+    );
+    await deleteDoc(docRef);
   };
 
   /* --------------- plan 삭제 처리 --------------- */
@@ -113,7 +139,9 @@ const GraduationPage = () => {
   return (
     <div className={styles.container}>
       <div className={styles.top}>
-      <Link to="/" style={{ textDecoration: "none" }}><h1>대학 생활 기록 웹사이트</h1></Link>
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <h1>대학 생활 기록 웹사이트</h1>
+        </Link>
       </div>
       <div className={styles.bottom}>
         <IndexBar id={3} />

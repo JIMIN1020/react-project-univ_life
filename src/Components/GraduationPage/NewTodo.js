@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styles from "./NewTodo.module.css";
 import { BsCheckSquare, BsCheck2 } from "react-icons/bs";
+import { doc, setDoc, collection } from "firebase/firestore";
+import { authService, dbService } from "../../fbase";
 
 const NewTodo = ({ todo, setTodo, setAddTodo }) => {
   const [text, setText] = useState("");
@@ -11,16 +13,28 @@ const NewTodo = ({ todo, setTodo, setAddTodo }) => {
   };
 
   /* --------------- 새로운 todo 추가 --------------- */
-  const addTodo = (e) => {
+  const addTodo = async (e) => {
     e.preventDefault();
 
     const newTodo = {
-      id: Date.now(),
       value: text,
       completed: false,
+      createdAt: Date.now(),
     };
 
-    setTodo([...todo, newTodo]);
+    // 파이어베이스에 추가
+    try {
+      const docRef = doc(
+        collection(
+          dbService,
+          "graduationPage",
+          `${authService.currentUser.uid}`,
+          "todo"
+        )
+      );
+      await setDoc(docRef, newTodo);
+    } catch (e) {}
+
     setAddTodo(false);
   };
 
@@ -31,7 +45,6 @@ const NewTodo = ({ todo, setTodo, setAddTodo }) => {
           <input className={styles.checkbox} type="checkbox" />
           <BsCheckSquare />
         </label>
-
         <input
           type="text"
           value={text}
