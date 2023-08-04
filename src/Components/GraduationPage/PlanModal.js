@@ -10,12 +10,16 @@ const PlanModal = ({
   setCurrentYear,
   currentTerm,
   setCurrentTerm,
+  changeRemovable,
 }) => {
   const [tempPlan, setTempPlan] = useState([]); // 임시 plan
   const [newPlan, setNewPlan] = useState(false); // 계획 추가용
 
   /* --------------- 최종 plan 처리 --------------- */
   const addPlan = async () => {
+    // removable 변경
+    changeRemovable();
+
     // 파이어베이스에 추가
     const docRef = doc(
       collection(
@@ -31,10 +35,6 @@ const PlanModal = ({
       removable: true,
       plans: tempPlan,
     });
-
-    // 이전 마지막 요소 삭제 불가능하게 조정
-    // const prevLast = plan[plan.length - 1];
-    // prevLast.removable = false;
 
     // setting
     setCurrentTerm((prev) => !prev);
