@@ -21,6 +21,7 @@ const NewTodo = ({ todo, setTodo, setAddTodo }) => {
       completed: false,
       createdAt: Date.now(),
     };
+    setAddTodo(false);
 
     // 파이어베이스에 추가
     try {
@@ -34,8 +35,6 @@ const NewTodo = ({ todo, setTodo, setAddTodo }) => {
       );
       await setDoc(docRef, newTodo);
     } catch (e) {}
-
-    setAddTodo(false);
   };
 
   return (

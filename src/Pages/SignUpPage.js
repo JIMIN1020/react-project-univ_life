@@ -5,8 +5,7 @@ import styles from "./SignUpPage.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { authService, dbService } from "../fbase";
-import { addDoc, collection, setDoc, doc } from "firebase/firestore";
-import uuid from "react-uuid";
+import { collection, setDoc, doc } from "firebase/firestore";
 
 const SignUpPage = () => {
   const navigate = useNavigate();

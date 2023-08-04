@@ -10,9 +10,9 @@ import {
 import LinkModal from "../Components/MainPage/LinkModal";
 import { Link, useNavigate } from "react-router-dom";
 import { authService, dbService } from "../fbase";
-import { collection, getDoc, query, doc } from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
 
-const MainPage = ({ userObj }) => {
+const MainPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [profile, setProfile] = useState({});
   const navigate = useNavigate();

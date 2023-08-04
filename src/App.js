@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import AppRouter from "./Components/AppRouter";
 import { authService } from "./fbase";
+import LoadingPage from "./Pages/LoadingPage";
 
 function App() {
   const [userObj, setUserObj] = useState(null);
@@ -26,7 +27,7 @@ function App() {
       {init ? (
         <AppRouter isLoggedIn={isLoggedIn} userObj={userObj} />
       ) : (
-        "Initailizing..."
+        <LoadingPage />
       )}
     </>
   );
