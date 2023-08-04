@@ -128,9 +128,13 @@ const GraduationPage = () => {
   };
 
   /* --------------- plan 삭제 처리 --------------- */
-  const deletePlan = (id) => {
-    let newPlan = plan.filter((plan) => plan.id !== id);
-    setPlan(newPlan);
+  const deletePlan = async (docId) => {
+    const docRef = doc(
+      dbService,
+      `graduationPage/${authService.currentUser.uid}/plan`,
+      docId
+    );
+    await deleteDoc(docRef);
 
     if (currentTerm === false) {
       setCurrentYear((prev) => prev - 1);
@@ -140,9 +144,37 @@ const GraduationPage = () => {
     }
 
     // 마지막 요소 삭제 가능하게 조정
-    if (plan.length > 5) {
-      plan[plan.length - 2].removable = true;
-      console.log("true: ", plan[plan.length - 2].title);
+    let len = plan.length;
+    if (len > 5) {
+      plan.forEach(async (plan) => {
+        console.log(plan);
+        len--;
+        if (len === 1) {
+          const docRef = doc(
+            dbService,
+            `graduationPage/${authService.currentUser.uid}/plan`,
+            plan.id
+          );
+          await updateDoc(docRef, { removable: true });
+        }
+      });
+    }
+  };
+
+  const changeRemovable = () => {
+    let len = plan.length;
+    if (len >= 5) {
+      plan.forEach(async (plan) => {
+        len--;
+        if (len === 0) {
+          const docRef = doc(
+            dbService,
+            `graduationPage/${authService.currentUser.uid}/plan`,
+            plan.id
+          );
+          await updateDoc(docRef, { removable: false });
+        }
+      });
     }
   };
 
@@ -312,8 +344,7 @@ const GraduationPage = () => {
                   setCurrentYear={setCurrentYear}
                   currentTerm={currentTerm}
                   setCurrentTerm={setCurrentTerm}
-                  plan={plan}
-                  setPlan={setPlan}
+                  changeRemovable={changeRemovable}
                 />
               )}
               {editModal && (
