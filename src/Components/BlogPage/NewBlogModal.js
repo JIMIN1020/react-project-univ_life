@@ -3,10 +3,11 @@ import useOnClickOutside from "./useOnClickOutside";
 import styles from "./NewBlogModal.module.css";
 import { TextareaAutosize } from '@mui/base';
 import moment from 'moment/moment';
+import { collection, doc, setDoc } from 'firebase/firestore';
+import { authService, dbService } from '../../fbase';
 
 function NewBlogModal({
   setNewModalOpen,
-  addNewBlog,
   options
 }) {
 
@@ -19,11 +20,12 @@ function NewBlogModal({
 
   const nowTime = moment().format("YYYY.MM.DD HH:mm:ss");
 
+  // 블로그 글 작성
   const handleSubmit = (e) => {
     e.preventDefault();
 
     let newBlog = {
-        id: Date.now(),
+        createdAt: Date.now(),
         title: title,
         type: type,
         date: nowTime,
@@ -45,6 +47,19 @@ function NewBlogModal({
 
     setNewModalOpen(false);
   }
+
+  // 파이어베이스에 새 블로그 추가
+  const addNewBlog = async (newBlog) => {
+    const docRef = doc(
+      collection(
+        dbService,
+        "blogPage",
+        `${authService.currentUser.uid}`,
+        "blogData"
+      )
+    );
+    await setDoc(docRef, newBlog);
+  };
 
   const NewSelectType = (props) => {
     return (

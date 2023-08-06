@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./BlogPage.module.css";
 import Profile from "../Components/Profile";
 import IndexBar from "../Components/IndexBar";
@@ -6,11 +6,22 @@ import Card from "../Components/BlogPage/Card";
 import BlogModal from "../Components/BlogPage/BlogModal";
 import NewBlogModal from "../Components/BlogPage/NewBlogModal";
 import { Link } from "react-router-dom";
+import {
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  onSnapshot,
+  orderBy,
+  query,
+  where,
+} from "firebase/firestore";
+import { authService, dbService } from "../fbase";
 
 export const BlogPage = () => {
-  const initialBlogData = localStorage.getItem("blogData")
+  /*const initialBlogData = localStorage.getItem("blogData")
     ? JSON.parse(localStorage.getItem("blogData"))
-    : [];
+    : [];*/
 
   const options = [
     { value: "daily", name: "일상" },
@@ -18,33 +29,102 @@ export const BlogPage = () => {
     { value: "etc", name: "기타" },
   ];
 
-  const [blogData, setBlogData] = useState(initialBlogData);
+  const [blogData, setBlogData] = useState([]);
+  const [typeData, setTypeData] = useState();
   const [modalOpen, setModalOpen] = useState(false);
   const [newModalOpen, setNewModalOpen] = useState(false);
   const [blogSelected, setBlogSelected] = useState({});
-
-  const blogClicked = (blog) => {
-    console.log("this is blogpage hey: " + blogSelected.title + blogData);
-  };
+  const [clickedType, setClickedType] = useState("");
 
   const showModal = (blog) => {
     setModalOpen(true);
     setBlogSelected(blog);
-    console.log("this is blogpage : " + blogSelected.title + blogData);
   };
 
   const showNewModal = () => {
     setNewModalOpen(true);
   };
 
-  const addNewBlog = (newBlog) => {
-    setBlogData((prev) => [...prev, newBlog]);
-    localStorage.setItem("blogData", JSON.stringify([...blogData, newBlog]));
+  // 블로그 업데이트
+  useEffect(() => {
+    getBlog();
+  }, []);
+
+  const getBlog = async () => {
+    const q = query(
+      collection(dbService, `blogPage/${authService.currentUser.uid}/blogData`),
+      orderBy("createdAt", "asc")
+    );
+
+    onSnapshot(q, (snapshot) => {
+      const blogs = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setBlogData(blogs);
+    });
   };
 
+  // 타입별 정렬
+  useEffect(() => {
+    getTypeData();
+  }, []);
+
+  const getTypeData = async () => {
+    const q = query(
+      collection(dbService, `blogData/${authService.currentUser.uid}/blogData`),
+      where("type", "==", clickedType)
+    );
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach((doc) => {
+      const newTypeData = {
+        ...doc.data(),
+        docID: doc.id,
+      };
+      setBlogData((prev) => [...prev, newTypeData]);
+    });
+  };
+
+  /*const handleRemoveClick = async (docId) => {
+    const docRef = doc(
+      dbService,
+      `blogPage/${authService.currentUser.uid}/blogData`,
+      docId
+    );
+    await deleteDoc(docRef);
+    /*const updatedBlogData = blogData.filter((blog) => blog.id !== id);
+    setBlogData(updatedBlogData);
+    localStorage.setItem("blogData", JSON.stringify(updatedBlogData));
+    setModalOpen(false);*/
+  //};
+
+  /* 파이어베이스에 새 블로그 추가
+  const addNewBlog = async (newBlog) => {
+    const docRef = doc(
+      collection(
+        dbService,
+        "blogPage",
+        `${authService.currentUser.uid}`,
+        "blogData"
+      )
+    );
+    await setDoc(docRef, newBlog);
+  };*/
+
   // 블로그 수정
-  const handleEditSubmit = (id, editedTitle, editedType, editedContent) => {
-    const editedBlogData = blogData.map((blog) => {
+  /*const handleEditSubmit = async (docId) => {
+    const docRef = doc(
+      dbService,
+      `blogPage/${authService.currentUser.uid}/blogData`,
+      docId
+    );
+    await updateDoc(docRef, {
+      title: editedTitle,
+      type: editedType,
+      content: editedContent,
+    });
+    /*const editedBlogData = blogData.map((blog) => {
       if (blog.id === id) {
         return {
           ...blog,
@@ -58,7 +138,7 @@ export const BlogPage = () => {
     setBlogData(editedBlogData);
     localStorage.setItem("blogData", JSON.stringify(editedBlogData));
     setModalOpen(false);
-  };
+  };*/
 
   return (
     <div className={styles.container}>
@@ -91,7 +171,6 @@ export const BlogPage = () => {
                     content={blog.content}
                     setModalOpen={showModal}
                     setBlogSelected={setBlogSelected}
-                    onClick={() => blogClicked()}
                   />
                 ))}
                 <section className="addcard" onClick={() => showNewModal()}>
@@ -101,23 +180,24 @@ export const BlogPage = () => {
             </div>
             {modalOpen && (
               <BlogModal
+                blog={blogSelected}
                 id={blogSelected.id}
                 title={blogSelected.title}
                 date={blogSelected.date}
                 type={blogSelected.type}
                 content={blogSelected.content}
-                handleEditSubmit={handleEditSubmit}
+                //handleEditSubmit={handleEditSubmit}
                 setBlogSelected={setBlogSelected}
                 setBlogData={setBlogData}
                 setModalOpen={setModalOpen}
                 blogData={blogData}
                 options={options}
+                //handleRemoveClick={handleRemoveClick}
               />
             )}
             {newModalOpen && (
               <NewBlogModal
                 setNewModalOpen={setNewModalOpen}
-                addNewBlog={addNewBlog}
                 options={options}
               />
             )}

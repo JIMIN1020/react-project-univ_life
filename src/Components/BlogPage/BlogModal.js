@@ -4,8 +4,11 @@ import useOnClickOutside from "./useOnClickOutside";
 import { BsPencilSquare, BsFillTrashFill } from "react-icons/bs";
 import { TextareaAutosize } from "@mui/base";
 import moment from "moment";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import { authService, dbService } from "../../fbase";
 
 function BlogModal({
+  blog,
   id,
   title,
   date,
@@ -36,8 +39,6 @@ function BlogModal({
       setModalOpen(false);
     }
   });
-
-  console.log("this is blogmodal : " + title);
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
@@ -77,14 +78,21 @@ function BlogModal({
     setEditedType(type);
     setEditedContent(content);
     setIsEditing(false);
-  }
+  };
 
   // 블로그 삭제하기
-  const handleRemoveClick = (id) => {
-    const updatedBlogData = blogData.filter((blog) => blog.id !== id);
-    setBlogData(updatedBlogData);
-    localStorage.setItem("blogData", JSON.stringify(updatedBlogData));
+  const handleRemoveClick = async (docId) => {
+    const ok = window.confirm("이 블로그를 삭제하시겠습니까?");
+    if (ok) {
+      const docRef = doc(
+      dbService,
+      `blogPage/${authService.currentUser.uid}/blogData/`,
+      docId
+    );
+    await deleteDoc(docRef);
     setModalOpen(false);
+    } else {
+    }
   };
 
   // 블로그 수정하기
@@ -92,28 +100,42 @@ function BlogModal({
     e.preventDefault();
 
     let editedBlogData = blogData.map((blog) => {
-      
       if (blog.id === id) {
-        console.log("이프문 들어옴!!");
-        console.log("this is editedblogdata : " + blog.title);
-          blog.title = editedTitle;
-          blog.type = editedType;
-          blog.content = editedContent;
-          blog.date = nowTime;
+        blog.title = editedTitle;
+        blog.type = editedType;
+        blog.content = editedContent;
+        blog.date = nowTime;
       }
       return blog;
     });
     setBlogData(editedBlogData);
-    localStorage.setItem("blogData", JSON.stringify(editedBlogData));
+    editBlog();
     setIsEditing(false);
   };
+
+  // 파이어베이스 블로그 수정하기
+  const editBlog = async () => {
+    console.log("id : ", id);
+    const docRef = doc(
+      dbService,
+      `blogPage/${authService.currentUser.uid}/blogData`,
+      blog.id
+    );
+    await updateDoc(docRef, {
+      title: editedTitle,
+      type: editedType,
+      content: editedContent,
+      date: nowTime,
+    });
+    setIsEditing(false);
+  }
 
   const handleTitleEdit = (e) => {
     setEditedTitle(e.target.value);
     setModalBlogData((prev) => ({
       ...prev,
       title: e.target.value,
-    }))
+    }));
   };
 
   const handleTypeEdit = (e) => {
@@ -121,7 +143,7 @@ function BlogModal({
     setModalBlogData((prev) => ({
       ...prev,
       type: e.target.value,
-    }))
+    }));
   };
 
   const handleContentEdit = (e) => {
@@ -129,7 +151,7 @@ function BlogModal({
     setModalBlogData((prev) => ({
       ...prev,
       content: e.target.value,
-    }))
+    }));
   };
 
   const SelectType = (props) => {
@@ -147,6 +169,8 @@ function BlogModal({
       </select>
     );
   };
+
+  // 블로그 불러오기
 
   /*
   const NewSelectType = (props) => {
@@ -219,7 +243,9 @@ function BlogModal({
             <div className={styles.modal__content}>
               <div className={styles.modal__top}>
                 <div className={styles.modal__top1}>
-                  <span className={styles.modal__type}>{modalBlogData.type}</span>
+                  <span className={styles.modal__type}>
+                    {modalBlogData.type}
+                  </span>
                   <div className={styles.icons}>
                     <BsPencilSquare
                       className={styles.edit}
@@ -244,8 +270,12 @@ function BlogModal({
                 </div>
                 <br></br>
                 <div className={styles.modal__top2}>
-                  <span className={styles.modal__title}>{modalBlogData.title}</span>
-                  <span className={styles.modal__date}>{modalBlogData.date}</span>
+                  <span className={styles.modal__title}>
+                    {modalBlogData.title}
+                  </span>
+                  <span className={styles.modal__date}>
+                    {modalBlogData.date}
+                  </span>
                 </div>
               </div>
               <div className={styles.modal__text}>{modalBlogData.content}</div>
