@@ -17,28 +17,17 @@ function ActiviModal({ setModalOpen, onSave, savedActiviContent }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    let newActivi = {
-      id: Date.now(),
-      date: date,
-      title: title,
-      detail: detail,
-    };
-
-    onSave(newActivi);
-    setModalOpen(false);
   };
 
   const handleEdit = () => {
     setEdit(true);
   };
 
-  const handleSave = (date, title, detail) => {
-    const savedContent = { date, title, detail };
+  const handleSave = async(date, title, detail) => {
+    const savedContent = {date, title, detail};
     onSave(savedContent);
     setModalOpen(false);
   };
-
 
   return (
     <div className={styles.modal}>
@@ -86,7 +75,7 @@ function ActiviModal({ setModalOpen, onSave, savedActiviContent }) {
 
         {edit ? (
           <>
-            <button className={styles.Btnok} onClick={()=>handleSave(date, title, detail)}>
+            <button type="submit" className={styles.Btnok} onClick={()=>handleSave(date, title, detail)}>
               저장
             </button>
           </>

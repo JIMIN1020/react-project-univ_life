@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./ActiviPage.module.css";
 import Profile from "../Components/Profile";
 import IndexBar from "../Components/IndexBar";
@@ -7,6 +7,11 @@ import { BsPlusCircle } from 'react-icons/bs';
 import { Link } from "react-router-dom";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import { v4 as uuidv4 } from 'uuid';
+
+import { collection, doc, setDoc, updateDoc, getDoc, getDocs } from "firebase/firestore";
+import { authService, dbService } from "../fbase";
+
 
 const ActiviPage = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -17,10 +22,45 @@ const ActiviPage = () => {
   const [activi2, setActivi2] = useState([]);
   const [activi3, setActivi3] = useState([]);
 
+
+  useEffect(() => {
+    // Firestore에서 데이터 불러오는 함수 정의
+    const fetchData = async () => {
+      try {
+        const querySnapshot1 = await getDocs(collection(dbService, `activiPage/${authService.currentUser.uid}/content1`));
+        const data1 = querySnapshot1.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setActivi1(data1);
+  
+        const querySnapshot2 = await getDocs(collection(dbService, `activiPage/${authService.currentUser.uid}/content2`));
+        const data2 = querySnapshot2.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setActivi2(data2);
+  
+        const querySnapshot3 = await getDocs(collection(dbService, `activiPage/${authService.currentUser.uid}/content3`));
+        const data3 = querySnapshot3.docs.map(doc => ({
+          id: doc.id,
+          ...doc.data()
+        }));
+        setActivi3(data3);
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+  
+    fetchData(); // 데이터 불러오기 함수 호출
+  }, []);
+  
+
+
   // 각 섹션(contentTop)에 대한 별도의 handleClick 함수
-  const handleClick1 = () => {
+  const handleClick1 = async() => {
     const newActivi = {
-      id: Date.now(),
+      id: uuidv4(),
       content: <div className={styles.div}></div>
     };
     setActivi1((prevActivi) => [...prevActivi, newActivi]);
@@ -29,7 +69,7 @@ const ActiviPage = () => {
 
   const handleClick2 = () => {
     const newActivi = {
-      id: Date.now(),
+      id: uuidv4(),
       content: <div className={styles.div}></div>
     };
     setActivi2((prevActivi) => [...prevActivi, newActivi]);
@@ -38,7 +78,7 @@ const ActiviPage = () => {
 
   const handleClick3 = () => {
     const newActivi = {
-      id: Date.now(),
+      id: uuidv4(),
       content: <div className={styles.div}></div>
     };
     setActivi3((prevActivi) => [...prevActivi, newActivi]);
@@ -51,36 +91,75 @@ const ActiviPage = () => {
     setActiviSelected({ type: section, id: id });
   };
 
-  const handleSaveActiviContent = (content) => {
+  const handleSaveActiviContent = async(content) => {
     setModalOpen(false);
 
     // 선택된 div의 정보가 있는 경우에만 처리
     if (activiSelected) {
       const { type, id } = activiSelected;
-      const updatedContent = { ...content, id: Date.now() };
+      const updatedContent = { ...content, id};
 
       switch (type) {
         case "동아리 & 학회":
           setActivi1((prevActivi) => {
-            return prevActivi.map((item) => {
+            const updatedActivi = prevActivi.map((item) => {
               if (item.id === id) {
                 return updatedContent;
               } else {
                 return item;
               }
             });
+            return updatedActivi;
           });
+          
+          // firebase 추가 (비동기 처리)
+          try {
+            const docRef = doc(
+              dbService,
+              `activiPage/${authService.currentUser.uid}/content1/${id}`
+            );
+            const docSnapshot = await getDoc(docRef);
+      
+            if (docSnapshot.exists()) {
+              await updateDoc(docRef, updatedContent);
+            }
+            else {
+              await setDoc(docRef, updatedContent);
+            }
+          } catch (e) {
+            console.error("Error saving data: ", e);
+          }
           break;
+          
         case "대외활동":
           setActivi2((prevActivi) => {
-            return prevActivi.map((item) => {
+            const updatedActivi = prevActivi.map((item) => {
               if (item.id === id) {
                 return updatedContent;
               } else {
                 return item;
               }
             });
+            return updatedActivi;
           });
+      
+          // firebase 추가 (비동기 처리)
+          try {
+            const docRef = doc(
+              dbService,
+              `activiPage/${authService.currentUser.uid}/content2/${id}`
+            );
+            const docSnapshot = await getDoc(docRef);
+      
+            if (docSnapshot.exists()) {
+              await updateDoc(docRef, updatedContent);
+            }
+            else {
+              await setDoc(docRef, updatedContent);
+            }
+          } catch (e) {
+            console.error("Error saving data: ", e);
+          }
           break;
         case "프로젝트":
           setActivi3((prevActivi) => {
@@ -92,7 +171,25 @@ const ActiviPage = () => {
               }
             });
           });
+          // firebase 추가 (비동기 처리)
+          try {
+            const docRef = doc(
+              dbService,
+              `activiPage/${authService.currentUser.uid}/content3/${id}`
+            );
+            const docSnapshot = await getDoc(docRef);
+      
+            if (docSnapshot.exists()) {
+              await updateDoc(docRef, updatedContent);
+            }
+            else {
+              await setDoc(docRef, updatedContent);
+            }
+          } catch (e) {
+            console.error("Error saving data: ", e);
+          }
           break;
+
         default:
           break;
       }
