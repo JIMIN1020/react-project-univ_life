@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Card.module.css";
 
 const Card = ({
@@ -18,7 +18,6 @@ const Card = ({
   const handleCardClick = () => {
     setModalOpen(true);
     setBlogSelected({ id, title, type, date, content });
-    console.log("this is card : " + title);
   }
   
   return (
