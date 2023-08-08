@@ -6,6 +6,19 @@ import { useSwipeable } from "react-swipeable";
 import { Link } from "react-router-dom";
 import { ResponsiveLine } from "@nivo/line";
 import GeneralBox from "../Components/GradePage/GeneralBox";
+import {
+  collection,
+  query,
+  onSnapshot,
+  orderBy,
+  updateDoc,
+  doc,
+  getDocs,
+  setDoc,
+  getDoc,
+  deleteDoc,
+} from "firebase/firestore";
+import { authService, dbService } from "../fbase";
 
 const MyResponsiveLine = ({ data }) => (
   <ResponsiveLine
@@ -85,38 +98,119 @@ const TodoItem = ({ text, isChecked, onCheck }) => {
 };
 
 const GradePage = () => {
-  const [gpaValue, setGpaValue] = useState(null);
-  const [gpaValue2, setGpaValue2] = useState(null);
-  const [gpaValue3, setGpaValue3] = useState(null);
-  const [gpaValue4, setGpaValue4] = useState(null);
-  const [gpaValue5, setGpaValue5] = useState(null);
-  const [gpaValue6, setGpaValue6] = useState(null);
-  const [gpaValue7, setGpaValue7] = useState(null);
-  const [gpaValue8, setGpaValue8] = useState(null);
+  const storedGpaValue = localStorage.getItem("gpaValue");
+  const initialGpaValue = storedGpaValue ? JSON.parse(storedGpaValue) : null;
+  const [gpaValue, setGpaValue] = useState(initialGpaValue);
+
+  const storedGpaValue2 = localStorage.getItem("gpaValue2");
+  const initialGpaValue2 = storedGpaValue2 ? JSON.parse(storedGpaValue2) : null;
+  const [gpaValue2, setGpaValue2] = useState(initialGpaValue2);
+
+  const storedGpaValue3 = localStorage.getItem("gpaValue3");
+  const initialGpaValue3 = storedGpaValue3 ? JSON.parse(storedGpaValue3) : null;
+  const [gpaValue3, setGpaValue3] = useState(initialGpaValue3);
+
+  const storedGpaValue4 = localStorage.getItem("gpaValue4");
+  const initialGpaValue4 = storedGpaValue4 ? JSON.parse(storedGpaValue4) : null;
+  const [gpaValue4, setGpaValue4] = useState(initialGpaValue4);
+
+  const storedGpaValue5 = localStorage.getItem("gpaValue5");
+  const initialGpaValue5 = storedGpaValue5 ? JSON.parse(storedGpaValue5) : null;
+  const [gpaValue5, setGpaValue5] = useState(initialGpaValue5);
+
+  const storedGpaValue6 = localStorage.getItem("gpaValue6");
+  const initialGpaValue6 = storedGpaValue6 ? JSON.parse(storedGpaValue6) : null;
+  const [gpaValue6, setGpaValue6] = useState(initialGpaValue6);
+
+  const storedGpaValue7 = localStorage.getItem("gpaValue7");
+  const initialGpaValue7 = storedGpaValue7 ? JSON.parse(storedGpaValue7) : null;
+  const [gpaValue7, setGpaValue7] = useState(initialGpaValue7);
+
+  const storedGpaValue8 = localStorage.getItem("gpaValue8");
+  const initialGpaValue8 = storedGpaValue8 ? JSON.parse(storedGpaValue8) : null;
+  const [gpaValue8, setGpaValue8] = useState(initialGpaValue8);
+
+  const AddFirst = async () => {
+    const docRef = doc(
+      collection(dbService, "gradePage", `${authService.currentUser.uid}`, "gpaValue")
+    );
+    await setDoc(docRef, {
+      first: gpaValue,
+      second: gpaValue2,
+      third: gpaValue3,
+      fourth: gpaValue4,
+      fifth: gpaValue5,
+      sixth: gpaValue6,
+      seventh: gpaValue7,
+      eighth: gpaValue8,
+    });
+  };  
+
+  useEffect(() => {
+    getFirst();
+  }, []);
+  
+  const getFirst = async () => {
+    const q = query(
+      collection(dbService, `gradePage/${authService.currentUser.uid}/gpaValue`),
+      orderBy("createdAt", "desc")
+    );
+    const querySnapshot = await getDocs(q);
+  
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      setGpaValue(data.first);
+      setGpaValue2(data.second);
+      setGpaValue3(data.third);
+      setGpaValue4(data.fourth);
+      setGpaValue5(data.fifth);
+      setGpaValue6(data.sixth);
+      setGpaValue7(data.seventh);
+      setGpaValue8(data.eighth);
+    });
+  };  
+
+  const handleAddFirstButtonClick = () => {
+    AddFirst();
+  };
 
   const handleGpaChange = (gpaValue) => {
     setGpaValue(gpaValue);
+    localStorage.setItem("gpaValue", JSON.stringify(gpaValue));
   };
+  
   const handleGpaChange2 = (gpaValue2) => {
-    setGpaValue2(gpaValue2);
+  setGpaValue(gpaValue2);
+  localStorage.setItem("gpaValue2", JSON.stringify(gpaValue2));
   };
+
   const handleGpaChange3 = (gpaValue3) => {
     setGpaValue3(gpaValue3);
+    localStorage.setItem("gpaValue3", JSON.stringify(gpaValue3));
   };
+
   const handleGpaChange4 = (gpaValue4) => {
     setGpaValue4(gpaValue4);
+    localStorage.setItem("gpaValue4", JSON.stringify(gpaValue4));
   };
+
   const handleGpaChange5 = (gpaValue5) => {
     setGpaValue5(gpaValue5);
+    localStorage.setItem("gpaValue5", JSON.stringify(gpaValue5));
   };
   const handleGpaChange6 = (gpaValue6) => {
     setGpaValue6(gpaValue6);
+    localStorage.setItem("gpaValue6", JSON.stringify(gpaValue6));
   };
+
   const handleGpaChange7 = (gpaValue7) => {
     setGpaValue7(gpaValue7);
+    localStorage.setItem("gpaValue7", JSON.stringify(gpaValue7));
   };
+
   const handleGpaChange8 = (gpaValue8) => {
     setGpaValue8(gpaValue8);
+    localStorage.setItem("gpaValue8", JSON.stringify(gpaValue8));
   };
 
   const [isDiv2Visible, setDiv2Visible] = useState(false);
@@ -380,6 +474,7 @@ const GradePage = () => {
                 </div>
                 <div className={styles.div1Contents}>
                   <div className={styles.label}>
+                  <button onClick={handleAddFirstButtonClick}>Save First Data</button>
                     {"세부 성적 입력란(성적 입력이 끝나면 저장 버튼을 눌러주세요.)"}
                   </div>
                   <div className={styles.div2}>
