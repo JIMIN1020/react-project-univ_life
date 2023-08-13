@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./GeneralBox.module.css";
 
 const GeneralBox = ({ onGpaChange }) => {
@@ -6,6 +6,45 @@ const GeneralBox = ({ onGpaChange }) => {
   const [creditInput, setCreditInput] = useState("1");
   const [gradeInput, setGradeInput] = useState("A+");
   const [contents, setContents] = useState([]);
+
+  useEffect(() => {
+    const storedSubjectInput = localStorage.getItem("subjectInput");
+    const storedCreditInput = localStorage.getItem("creditInput");
+    const storedGradeInput = localStorage.getItem("gradeInput");
+
+    if (storedSubjectInput) {
+      setSubjectInput(storedSubjectInput);
+    }
+    if (storedCreditInput) {
+      setCreditInput(storedCreditInput);
+    }
+    if (storedGradeInput) {
+      setGradeInput(storedGradeInput);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("subjectInput", subjectInput);
+  }, [subjectInput]);
+
+  useEffect(() => {
+    localStorage.setItem("creditInput", creditInput);
+  }, [creditInput]);
+
+  useEffect(() => {
+    localStorage.setItem("gradeInput", gradeInput);
+  }, [gradeInput]);
+
+  useEffect(() => {
+    const storedContents = localStorage.getItem("subjectContents");
+    if (storedContents) {
+      setContents(JSON.parse(storedContents));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("subjectContents", JSON.stringify(contents));
+  }, [contents]);
 
   const handleSubjectInputChange = (event) => {
     setSubjectInput(event.target.value);
@@ -17,7 +56,7 @@ const GeneralBox = ({ onGpaChange }) => {
 
   const handleGradeInputChange = (event) => {
     setGradeInput(event.target.value);
-    const newGpaValue = calculateGPA(); // Use the existing calculateGPA function
+    const newGpaValue = calculateGPA();
     onGpaChange(newGpaValue); 
   };
   

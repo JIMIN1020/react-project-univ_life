@@ -97,7 +97,26 @@ const TodoItem = ({ text, isChecked, onCheck }) => {
   );
 };
 
+
 const GradePage = () => {
+  const storedTodoItems = localStorage.getItem("todoItems");
+  const initialTodoItems = storedTodoItems ? JSON.parse(storedTodoItems) : [
+    { text: '', isChecked: false }
+  ];
+  const [todoItems, setTodoItems] = useState(initialTodoItems);
+
+  useEffect(() => {
+    localStorage.setItem("todoItems", JSON.stringify(todoItems));
+  }, [todoItems]);
+
+  const storedDiv2Contents = localStorage.getItem("div2Contents");
+  const initialDiv2Contents = storedDiv2Contents ? JSON.parse(storedDiv2Contents) : [];
+  const [div2Contents, setDiv2Contents] = useState(initialDiv2Contents);
+
+  const storedDiv3Contents = localStorage.getItem("div3Contents");
+  const initialDiv3Contents = storedDiv3Contents ? JSON.parse(storedDiv3Contents) : [];
+  const [div3Contents, setDiv3Contents] = useState(initialDiv3Contents);
+
   const storedGpaValue = localStorage.getItem("gpaValue");
   const initialGpaValue = storedGpaValue ? JSON.parse(storedGpaValue) : null;
   const [gpaValue, setGpaValue] = useState(initialGpaValue);
@@ -147,6 +166,7 @@ const GradePage = () => {
   };  
 
   useEffect(() => {
+    AddFirst();
     getFirst();
   }, []);
   
@@ -177,12 +197,15 @@ const GradePage = () => {
   const handleGpaChange = (gpaValue) => {
     setGpaValue(gpaValue);
     localStorage.setItem("gpaValue", JSON.stringify(gpaValue));
-  };
+    localStorage.setItem("div2Contents", JSON.stringify(div2Contents));
+  };  
   
   const handleGpaChange2 = (gpaValue2) => {
-  setGpaValue(gpaValue2);
-  localStorage.setItem("gpaValue2", JSON.stringify(gpaValue2));
+    setGpaValue2(gpaValue2);
+    localStorage.setItem("gpaValue2", JSON.stringify(gpaValue2));
+    localStorage.setItem("div3Contents", JSON.stringify(div3Contents));
   };
+  
 
   const handleGpaChange3 = (gpaValue3) => {
     setGpaValue3(gpaValue3);
@@ -213,6 +236,15 @@ const GradePage = () => {
     localStorage.setItem("gpaValue8", JSON.stringify(gpaValue8));
   };
 
+  const handleTodoCheck = (index) => {
+    setTodoItems((prevTodoItems) => {
+      const updatedTodos = [...prevTodoItems];
+      updatedTodos[index].isChecked = !updatedTodos[index].isChecked;
+      return updatedTodos;
+    });
+  };
+  
+
   const [isDiv2Visible, setDiv2Visible] = useState(false);
   const [isDiv3Visible, setDiv3Visible] = useState(false);
   const [isDiv4Visible, setDiv4Visible] = useState(false);
@@ -224,8 +256,7 @@ const GradePage = () => {
   const [subjectInput, setSubjectInput] = useState("");
   const [creditInput, setCreditInput] = useState("1");
   const [gradeInput, setGradeInput] = useState("A+");
-  const [div2Contents, setDiv2Contents] = useState([]);
-  const [div3Contents, setDiv3Contents] = useState([]);
+
   const [div4Contents, setDiv4Contents] = useState([]);
   const [div5Contents, setDiv5Contents] = useState([]);
   const [div6Contents, setDiv6Contents] = useState([]);
@@ -345,17 +376,29 @@ const GradePage = () => {
       }
     }
   };
+  
 
   const addSubject = () => {
     const newSubject = `${subjectInput} - ${gradeInput}(${creditInput}학점)`;
+    const newSubject2 = `${subjectInput} - ${gradeInput}(${creditInput}학점)`;
+    
     const credit = parseInt(creditInput);
     const subjects = Array.from({ length: credit }, () => newSubject);
+    const subjects2 = Array.from({ length: credit }, () => newSubject2);
 
     setDiv2Contents((prevContents) => prevContents.concat(subjects));
     setSubjectInput("");
     setCreditInput("1");
     setGradeInput("A+");
-  };
+
+    setDiv3Contents((prevContents) => prevContents.concat(subjects2));
+    setSubjectInput("");
+    setCreditInput("1");
+    setGradeInput("A+");
+
+    localStorage.setItem("div2Contents", JSON.stringify(div2Contents.concat(subjects)));
+    localStorage.setItem("div3Contents", JSON.stringify(div3Contents.concat(subjects2))); // Update localStorage here
+};
 
   const calculateTotalCredits = () => {
     let totalCredits = 0;
@@ -395,21 +438,12 @@ const GradePage = () => {
 
   const handleAddTodo = () => {
     if (todoInput.trim() !== "") {
-      setTodos((prevTodos) => [
-        ...prevTodos,
-        { text: todoInput, isChecked: false },
-      ]);
+      const newTodoItem = { text: todoInput, isChecked: false };
+      setTodoItems((prevTodoItems) => [...prevTodoItems, newTodoItem]);
       setTodoInput("");
     }
   };
 
-  const handleTodoCheck = (index) => {
-    setTodos((prevTodos) => {
-      const updatedTodos = [...prevTodos];
-      updatedTodos[index].isChecked = !updatedTodos[index].isChecked;
-      return updatedTodos;
-    });
-  };
 
   return (
     <div className={styles.container}>
@@ -431,25 +465,29 @@ const GradePage = () => {
               <div className={styles.div1}>
                 <div className={styles.todoList}>
                   <div className={styles.todoInput}>
-                    <h3>오늘의 계획</h3>
-                    <input
-                      type="text"
-                      placeholder="할 일을 입력하세요"
-                      value={todoInput}
-                      onChange={handleTodoInputChange}
-                    />
-                    <button onClick={handleAddTodo}>추가</button>
-                  </div>
-                  <div className={styles.todos}>
-                    {todos.map((todo, index) => (
-                      <TodoItem
-                        key={index}
-                        text={todo.text}
-                        isChecked={todo.isChecked}
-                        onCheck={() => handleTodoCheck(index)}
-                      />
-                    ))}
-                  </div>
+                  <div className={styles.todoList}>
+  <div className={styles.todoInput}>
+    <h3>오늘의 계획</h3>
+    <input
+      type="text"
+      placeholder="할 일을 입력하세요"
+      value={todoInput}
+      onChange={handleTodoInputChange}
+    />
+    <button onClick={handleAddTodo}>추가</button>
+  </div>
+  <div className={styles.todos}>
+    {todoItems.map((todo, index) => (
+      <TodoItem
+        key={index}
+        text={todo.text}
+        isChecked={todo.isChecked}
+        onCheck={() => handleTodoCheck(index)}
+      />
+    ))}
+</div>
+</div>
+</div>
                 </div>
                 <div className={styles.div10}>
                   <h3>성적 그래프</h3>
@@ -474,7 +512,6 @@ const GradePage = () => {
                 </div>
                 <div className={styles.div1Contents}>
                   <div className={styles.label}>
-                  <button onClick={handleAddFirstButtonClick}>Save First Data</button>
                     {"세부 성적 입력란(성적 입력이 끝나면 저장 버튼을 눌러주세요.)"}
                   </div>
                   <div className={styles.div2}>
